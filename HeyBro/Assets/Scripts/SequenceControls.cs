@@ -12,8 +12,8 @@ public class SequenceControls : MonoBehaviour {
 	
 	// TO CREATE THE EVENTS THAT WILL BE CHECKED
 	private enum touch { palm, fist, elbow }; 
-	public int contactA;
-	public int contactB; 
+	public int[] contactA;
+	public int[] contactB; 
 	public int detectedA;
 	public int detectedB; 
 	private int minEnum = 0; 	// first index of the enum
@@ -36,17 +36,29 @@ public class SequenceControls : MonoBehaviour {
 	private bool touchDetectedA;
 	private bool touchDetectedB; 
 
+	private bool hi5; 				// begin and end a battle with a hi5
+	private bool seqGenerated; 		// true if a sequence has been generated but not completed 
+
 	// TO KEEP TRACK OF CURRENT MOVE
-	public int currentSeq; 
-	public int currentMove; 		// which move are we at in the overall sequence/in total moves
-	public int numSequences;
-	public float currentSeqTime; 
-	public float currentWindow; 
-	public bool correctCombo; 
+	private enum sequence { three, fourA, fourB, fiveA, fiveB, six }; 
+	private int currentSeq; 		// will take one of the enum values/indeces
+	private int seqMoves;			// which sequence type within the sequence enum
+	private int seqDamage; 			// damage to deal if succeed sequence
+	private float seqDelay; 		// delay between moves in current sequence
+	private float seqWindow; 		// response window for current seq
+
+	private int currentMove; 		// the move we're at in the current sequence, used as index for contactA/contactB arrays to get the move we want 
+	private int correctMoves; 
+	private float currentSeqTime; 	// 
+	
+	// PLAYER STUFF
+	private int hp = 100; 
 
 
-	private float[][] sequences; 
 
+	// 0: num moves per sequence, 1: dmg, 2: delay, 3: window
+	private float[][] sequences = 	new float[4][] { new float[] { 3, 40, .9f, .175f }, new float[]{ 4, 75, .8f, .150f }, 
+													 new float[] { 5, 100, .75f, .150f }, new float[] { 6, 150, .7f, .125f }};	
 
 	void Start(){
 	
@@ -57,42 +69,20 @@ public class SequenceControls : MonoBehaviour {
 		touchDetectedA = false; 
 		touchDetectedB = false;
 
-		// 0: num sets of that sequence, 1: num moves per sequence, 2: dmg, 3: delay, 4: window
-		if (Application.loadedLevelName.Equals("SpaceJellyfish")){
-			sequences = new float[2][5];
-			sequences[0] = { 2, 2, 25, 1, .2f };
-			sequences[1] = { 1, 3, 40, .9f, .175f };
-		}
-		else if (Application.loadedLevelName.Equals("SentientMeteor")){
-			sequences = new float[3][5];
-			sequences[0] = { 1,	2, 25, 1, .2f };
-			sequences[1] = { 2,	3, 40, .9f, .175f };
-			sequences[2] = { 1,	4, 75, .8f, .150f };
-		}
-		else if (Application.loadedLevelName.Equals("RobotCrimelord")){
-			sequences = new float[4][5];
-			sequences[0] = { 1, 3, 40, .9f, .175f };
-			sequences[1] = { 2, 4, 75, .8f, .150f };
-			sequences[2] = { 2, 5, 100, .75f, .150f };
-			sequences[3] = { 1, 6, 150, .7f, .125f };
-		}
+		hi5 = false; 
+
+
 	}
 
 	void Update(){
-		randomEvent(); 
 		
 	}
 
 	void FixedUpdate(){
 		currentSeqTime += Time.deltaTime; 
-		currentWindow += Time.deltaTime; 
 
-		if (currentSeqTime >= sequences[currentSeq][3]){
-			currentSeqTime = 0;
-			if (correctCombo){
-				
-			}
-		}
+		readFromArduino(); 
+		battleProceed(); 
 	}
 
 	/* --------------------------------------------------------------------------------------------------------------------------
@@ -119,7 +109,7 @@ public class SequenceControls : MonoBehaviour {
 	 	// (3)
 	 	if (touchDetectedA){
 	 		int i = 1; 
-	 		while (byteBuffer[i] == contactA){
+	 		while ((int) byteBuffer[i] == detectedA){
 	 			i++;
 	 		}
 	 		detectedB = byteBuffer[i];
@@ -128,13 +118,45 @@ public class SequenceControls : MonoBehaviour {
 	 	// (4)
 	 	else if (touchDetectedB){
 	 		int i = 1; 
-	 		while (byteBuffer[i] == contactB){
+	 		while ((int) byteBuffer[i] == detectedB){
 	 			i++;
 	 		}
 	 		detectedA = byteBuffer[i];
 	 		touchDetectedA = true; 
 	 	}
 	 }
+	 /* --------------------------------------------------------------------------------------------------------------------------
+	 * NO ARGS. NO RETURN.
+	 * (1) check if started battle i.e. IF HIGH FIVED
+	 * (2) if so, check if a sequence has already been generated 
+	 * -------------------------------------------------------------------------------------------------------------------------- */
+	private void battleProceed(){
+		if (hi5) { 
+			if (!seqGenerated){
+				generateSeqParams(); 
+				generateSequence(currentSeq); 
+				seqGenerated = true; 
+			}
+			else {
+				if (checkBothEvents()){
+				 	correctMoves++; 
+					seqMoves--; 
+				}
+				// check if sequence is finished 
+				if (seqMoves <= 0){
+					// check if all moves in sequence were correctly done  
+					if (correctMoves >= seqMoves){ 
+						//deal damage
+						//gameObject.SendMessage("DamageEnemy", seqDamage);
+					}
+					seqGenerated = false; // to generate a new sequence 
+				}
+			}		
+		}
+		else if (detectedA == 1 && detectedB == 4){
+			hi5 = true; 
+		}
+	}
 
 	/* --------------------------------------------------------------------------------------------------------------------------
 	 * NO ARGS. NO RETURN.
@@ -143,58 +165,98 @@ public class SequenceControls : MonoBehaviour {
 	 * -------------------------------------------------------------------------------------------------------------------------- */
 	
 	 private void generateSeqParams(){
-	 	// (1) generate number of moves for next seq
-	 	movesPerSeqLen += Random.Range(minMovesPerSeq, maxMovesPerSeq); 
+	 	currentSeq = Random.Range(0, 6); 
+	 	switch (currentSeq){
+	 		case (int) sequence.three:
+	 			seqMoves 	= (int) sequences[0][0];
+	 			seqDamage 	= (int) sequences[0][1];
+	 			seqDelay 	= sequences[0][2];
+	 			seqWindow 	= sequences[0][3];
+	 			break;
 
-	 	// (1*) check that it doesn't surpass total moves in level
-	 	if (movesPerSeqLen > numMoves){
-	 		movesPerSeqLen = numMoves; 
+	 		case (int) sequence.fourA:
+	 			seqMoves 	= (int) sequences[1][0];
+	 			seqDamage 	= (int) sequences[1][1];
+	 			seqDelay 	= sequences[1][2];
+	 			seqWindow 	= sequences[1][3];
+	 			break;
+
+	 		case (int) sequence.fourB:
+	 			seqMoves 	= (int) sequences[1][0];
+	 			seqDamage 	= (int) sequences[1][1];
+	 			seqDelay 	= sequences[1][2];
+	 			seqWindow 	= sequences[1][3];
+	 			break;
+
+	 		case (int) sequence.fiveA:
+	 			seqMoves 	= (int) sequences[2][0];
+	 			seqDamage 	= (int) sequences[2][1];
+	 			seqDelay 	= sequences[2][2];
+	 			seqWindow 	= sequences[2][3];
+	 			break;
+
+	 		case (int) sequence.fiveB:
+	 			seqMoves 	= (int) sequences[2][0];
+	 			seqDamage 	= (int) sequences[2][1];
+	 			seqDelay 	= sequences[2][2];
+	 			seqWindow 	= sequences[2][3];
+	 			break;
+
+	 		case (int) sequence.six:
+	 			seqMoves 	= (int) sequences[3][0];
+	 			seqDamage 	= (int) sequences[3][1];
+	 			seqDelay 	= sequences[3][2];
+	 			seqWindow 	= sequences[3][3];
+	 			break;
+
+	 		default: 
+	 			break; 
 	 	}
-
-	 	// (2) what is the delay between the next set of moves
-	 	seqDelay = Random.Range(minSeqDelay, maxSeqDelay); 
 	 }
 
-	/* --------------------------------------------------------------------------------------------------------------------------
-	 * NO ARGS. NO RETURN.
-	 * set random value in enum range (from minEnum to maxEnum) to contactA and contactB 
+	 /* --------------------------------------------------------------------------------------------------------------------------
+	 * ARG: current sequence type being executed 
+	 * (1) initialize currentMove and correctMoves to 0 since starting a new seq
+	 * (2) initialize contactA and contactB arrays of the appropriate size (number of moves to do within current sequence type)
+	 * (3) generate a random command for each move in the array
 	 * -------------------------------------------------------------------------------------------------------------------------- */
 	
-	private void randomEvent(){
-		contactA = Random.Range(minEnum, maxEnum);
-		contactB = Random.Range(minEnum, maxEnum);
-	}
+	private void generateSequence(int seq){
+		currentMove = 0; 
+		correctMoves = 0; 
+		contactA = new int[seqMoves];
+		contactB = new int[seqMoves]; 
 
-	/* --------------------------------------------------------------------------------------------------------------------------
-	 * NO ARGS. NO RETURN.
-	 * (1) check if we've completed the total sequence of the level
-	 * (2) if current set of moves not completed, trigger a randomEvent and increment the currentMove (go to next move)
-	 * (3) otherwise, generate a new set
-	 * -------------------------------------------------------------------------------------------------------------------------- */
-	
-	private void generateSequence(){
-
-		// (1) if currentMove >= numMoves -> completed the level (either win or lose)
-		if (currentMove < numMoves){
-
-			// (2) trigger randomEvent and inc currentMove
-			if (currentMove < movesPerSeqLen){
-				randomEvent();
-				currentMove++; 
-			}
-			// (3) generate a new set 
-			else {
-				generateSeqParams(); 
-			}
+		// generate a random move for each in the seq
+		for (int i = 0; i < seqMoves; i++){
+			contactA[i] = Random.Range(minEnum, maxEnum); 
+			contactB[i] = Random.Range(minEnum, maxEnum); 
 		}
-		//else win current level
 	}
+
+	/* --------------------------------------------------------------------------------------------------------------------------
+	 * NO ARGS. 
+	 * RETURN: 
+	 * - true if both players did the move that was asked
+	 * - false otherwise 
+	 * -------------------------------------------------------------------------------------------------------------------------- */
+
+	 private bool checkBothEvents(){
+	 	bool correctA = checkTouchA(contactA[currentMove]);
+	 	bool correctB = checkTouchB(contactB[currentMove]); 
+
+	 	if (correctA && correctB){
+	 		return true; 
+	 	}
+		return false; 
+	 }
 
 	/* --------------------------------------------------------------------------------------------------------------------------
 	 * ARG: the demanded contact input for player A
 	 * (1) touchDetectedA bool set to TRUE;
-	 * (2) if hit the right contact then return true. 
-	 * (3) Otherwise return false
+	 * (2) if the player did a move within the window of time 
+	 * (3) if hit the right contact then return true. 
+	 * (4) Otherwise return false
 	 * -------------------------------------------------------------------------------------------------------------------------- */
 
 	private bool checkTouchA(int touchA){
@@ -206,39 +268,43 @@ public class SequenceControls : MonoBehaviour {
 		// (1) touch detected from player A
 		touchDetectedA = true;
 
-		// (2) if right input, return true
-		switch (touchA){ 
-			case (int) touch.palm:
-				if (palmA){
-					return true; 
-				}
-				break;
+		// (2) check that hit within window
+		if (currentSeqTime < seqWindow){
+			// (3) if right input, return true
+			switch (touchA){ 
+				case (int) touch.palm:
+					if (palmA){
+						return true; 
+					}
+					break;
 
-			case (int) touch.fist:
-				if (fistA){
-					return true; 
-				}
-				break;
+				case (int) touch.fist:
+					if (fistA){
+						return true; 
+					}
+					break;
 
-			case (int) touch.elbow:
-				if (elbowA){
-					return true; 
-				}
-				break;
+				case (int) touch.elbow:
+					if (elbowA){
+						return true; 
+					}
+					break;
 
-			default:
-				break;
+				default:
+					break;
 
+			}
 		}
-		// (3) if haven't returned true = wrong input (CHECK ANY KEY?)
+		// (4) if haven't returned true = wrong input (CHECK ANY KEY?)
 		return false; 
 	}
 
 	/* --------------------------------------------------------------------------------------------------------------------------
 	 * ARG: the demanded contact input for player B
 	 * (1) touchDetectedB bool set to TRUE;
-	 * (2) if hit the right contact then return true. 
-	 * (3) Otherwise return false
+	 * (2) if the player did a move within the window of time 
+	 * (3) if hit the right contact then return true. 
+	 * (4) Otherwise return false
 	 * -------------------------------------------------------------------------------------------------------------------------- */
 
 	private bool checkTouchB(int touchB){
@@ -250,55 +316,35 @@ public class SequenceControls : MonoBehaviour {
 		// (1) touch detected from player B
 		touchDetectedB = true; ; 
 
-		// (2) if right input, return true
-		switch (touchB){
-			case (int) touch.palm:
-				if (palmB){
-					return true; 
-				}
-				break;
+		// (2) if the players hit within the window of time 
+		if (currentSeqTime < seqWindow){
+			// (3) if right input, return true
+			switch (touchB){
+				case (int) touch.palm:
+					if (palmB){
+						return true; 
+					}
+					break;
 
-			case (int) touch.fist:
-				if (fistB){
-					return true; 
-				}
-				break;
+				case (int) touch.fist:
+					if (fistB){
+						return true; 
+					}
+					break;
 
-			case (int) touch.elbow:
-				if (elbowB){
-					return true; 
-				}
-				break;
-		
-			default:
-				break;
-		
+				case (int) touch.elbow:
+					if (elbowB){
+						return true; 
+					}
+					break;
+			
+				default:
+					break;
+			
+			}
 		}
-
 		// (3) if haven't returned true = wrong input (CHECK ANY KEY?)
 		return false; 
 	}
-
-	/* --------------------------------------------------------------------------------------------------------------------------
-	 * 
-	 * -------------------------------------------------------------------------------------------------------------------------- */
-
-	 private bool checkBothEvents(){
-/*
-	 	// (1) if both players have touched 
-	 	if (touchDetectedA && touchDetectedB){
-
-	 		// (2) if AT LEAST ONE player touched the wrong thing
-		 	if (!checkTouchA || !checkTouchB){
-
-		 	}
-
-
-		 	else if (checkTouchA && checkTouchB){
-
-		 	}
-		}*/
-		return false; 
-	 }
 
 }
