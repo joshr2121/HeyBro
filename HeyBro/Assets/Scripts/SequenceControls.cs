@@ -44,6 +44,8 @@ public class SequenceControls : MonoBehaviour {
 	public float seqDelay; 			// delay between moves for each sequence speed
 	public float currentSeqTime; 	// how much time passed since the current sequence of a certain speed started
 
+	// 
+
 
 	void Start(){
 	
@@ -66,11 +68,11 @@ public class SequenceControls : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
-
+		currentSeqTime += Time.deltaTime; 
 	}
 
 	/* --------------------------------------------------------------------------------------------------------------------------
-	 * NO ARG. NO RETURN.
+	 * NO ARGS. NO RETURN.
 	 * (1) read inputs from arduino
 	 * (2) check if the first byte corresponds to player A or B
 	 * (3) if corresponded to player A, find the first different byte, set it to player B
@@ -90,6 +92,7 @@ public class SequenceControls : MonoBehaviour {
 	 		detectedB = byteBuffer[0];
 	 		touchDetectedB = true; 
 	 	}
+	 	// (3)
 	 	if (touchDetectedA){
 	 		int i = 1; 
 	 		while (byteBuffer[i] == contactA){
@@ -98,6 +101,7 @@ public class SequenceControls : MonoBehaviour {
 	 		detectedB = byteBuffer[i];
 	 		touchDetectedB = true; 
 	 	}
+	 	// (4)
 	 	else if (touchDetectedB){
 	 		int i = 1; 
 	 		while (byteBuffer[i] == contactB){
@@ -110,14 +114,20 @@ public class SequenceControls : MonoBehaviour {
 
 	/* --------------------------------------------------------------------------------------------------------------------------
 	 * NO ARGS. NO RETURN.
-	 * 
+	 * (1) generate a number of moves within the next seq of whatever speed
+	 * (2) generate the delay between moves 
 	 * -------------------------------------------------------------------------------------------------------------------------- */
 	
 	 private void generateSeqParams(){
+	 	// (1) generate number of moves for next seq
 	 	movesPerSeqLen += Random.Range(minMovesPerSeq, maxMovesPerSeq); 
+
+	 	// (1*) check that it doesn't surpass total moves in level
 	 	if (movesPerSeqLen > numMoves){
 	 		movesPerSeqLen = numMoves; 
 	 	}
+
+	 	// (2) what is the delay between the next set of moves
 	 	seqDelay = Random.Range(minSeqDelay, maxSeqDelay); 
 	 }
 
@@ -133,18 +143,22 @@ public class SequenceControls : MonoBehaviour {
 
 	/* --------------------------------------------------------------------------------------------------------------------------
 	 * NO ARGS. NO RETURN.
-	 * (1) read inputs from arduino
-	 * (2) check if the first byte corresponds to player A or B
-	 * (3) if corresponded to player A, find the first different byte, set it to player B
-	 * (4) otherwise, do the same but to player A
+	 * (1) check if we've completed the total sequence of the level
+	 * (2) if current set of moves not completed, trigger a randomEvent and increment the currentMove (go to next move)
+	 * (3) otherwise, generate a new set
 	 * -------------------------------------------------------------------------------------------------------------------------- */
 	
 	private void generateSequence(){
 
+		// (1) if currentMove >= numMoves -> completed the level (either win or lose)
 		if (currentMove < numMoves){
-			if (currentMove < movesPerSeqLen){
 
+			// (2) trigger randomEvent and inc currentMove
+			if (currentMove < movesPerSeqLen){
+				randomEvent();
+				currentMove++; 
 			}
+			// (3) generate a new set 
 			else {
 				generateSeqParams(); 
 			}
