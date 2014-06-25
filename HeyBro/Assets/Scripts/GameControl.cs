@@ -28,8 +28,7 @@ public class GameControl : MonoBehaviour {
 	 * (5)	check enemy HP (if 0 => win game)
 	 * 
 	 * ~ ENEMY'S TURN 
-	 * // (6)	randomly generate an attack
-	 *	
+	 * (6)	randomly generate an attack	
 	 * (7)	if player counters within counter window => damage enemy
 	 * (8)	else if player blocks within block window => nothing happens
 	 * (9)	else if player fails => damage player
@@ -76,6 +75,22 @@ public class GameControl : MonoBehaviour {
 				player.defending = true; 
 			}
 		}
+	}
+
+	private void enemyTurn(){
+		enemy.generateAttack(); 
+	}
+
+	private void playerResponse(){
+
+	}
+
+	private void enemyHPcheck(){
+
+	}
+
+	private void playerHPcheck(){
+
 	}
 
 }
