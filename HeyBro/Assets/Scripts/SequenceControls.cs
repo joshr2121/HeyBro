@@ -100,7 +100,6 @@ public class SequenceControls : MonoBehaviour {
 		currentSeqTime += Time.deltaTime; 
 
 		readFromArduino(); 
-		battleProceed(); 
 	}
 
 	/* --------------------------------------------------------------------------------------------------------------------------
