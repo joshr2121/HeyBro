@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections;
 using System.IO.Ports; 
 
+// NB: STILL HAVEN'T IMPLEMENTED THE DELAY BETWEEN MOVES IN SEQUENCE
+
 public class SequenceControls : MonoBehaviour {
 
 	// ARDUINO STUFF ("PORT" is not right)
@@ -48,14 +50,20 @@ public class SequenceControls : MonoBehaviour {
 	private float seqWindow; 		// response window for current seq
 
 	private int currentMove; 		// the move we're at in the current sequence, used as index for contactA/contactB arrays to get the move we want 
-	private int correctMoves; 
-	private float currentSeqTime; 	// 
+	private int correctMoves; 		// number of correctly done moves in the current sequence
+	private float currentSeqTime; 	// currently accumulated time since the sequence began
 	
 	// PLAYER STUFF
-	private int hp = 100; 
-	private bool attacking;
+	public int hp = 100; 			
+	private bool attacking;			
 	private bool defending; 
 	private enum reaction { block, counter, fail };
+
+	private int counterDamage = 10;
+	public int turn;  
+
+	// ENEMY STUFF
+	public EnemyControls enemy; 
 
 
 
@@ -78,6 +86,8 @@ public class SequenceControls : MonoBehaviour {
 		hp = 100;
 		attacking = true;
 		defending = false;
+
+		turn = 0; 
 
 
 	}
@@ -135,7 +145,16 @@ public class SequenceControls : MonoBehaviour {
 	 }
 	 /* --------------------------------------------------------------------------------------------------------------------------
 	 * NO ARGS. NO RETURN.
-	 * (1) chec 
+	 * (1) check if players have highfived to begin the battle
+	 * (2) check if there is a sequence that has been generated/is being done 
+	 *		(2i)	generate a random sequence type and its corresponding parameters
+	 *		(2ii) 	generate the moves in the sequence
+	 * (3) if a sequence has already been generated - 
+	 *		(3i)	check if the players did the current move correctly
+	 *		(3ii)	reduce the number of moves left
+	 * (4) if run out of moves in sequence (completed the sequence)
+	 *		(4i)	if did all moves in sequence right, deal damage
+	 * 		(4ii)	finished the sequence, so prepare to receive attack 
 	 * -------------------------------------------------------------------------------------------------------------------------- */
 	private void battleProceed(){
 		if (hi5) { 
@@ -144,18 +163,19 @@ public class SequenceControls : MonoBehaviour {
 					generateSeqParams(); 
 					generateSequence(currentSeq); 
 					seqGenerated = true; 
+					turn++; 
 				}
 				else {
 					if (checkBothEvents()){
 					 	correctMoves++; 
-						seqMoves--; 
 					}
+					seqMoves--; 
 					// check if sequence is finished 
 					if (seqMoves <= 0){
 						// check if all moves in sequence were correctly done  
 						if (correctMoves >= seqMoves){ 
 							//deal damage
-							//gameObject.SendMessage("DamageEnemy", seqDamage);
+							gameObject.SendMessage("DamageEnemy", seqDamage);
 						}
 						seqGenerated = false; // to generate a new sequence 
 						attacking = false;
@@ -164,20 +184,34 @@ public class SequenceControls : MonoBehaviour {
 				}
 			}
 			else if (defending){
+
 				int resp = enemyResponse(); 
 				switch (resp){
 					case (int) reaction.fail:
 						// hp -= current enemy attack damage
+						hp -= (int) enemy.attackParams[(int) enemy.currentAttack][0]; 
 						break; 
 
 					case (int) reaction.counter:
-						
+						gameObject.SendMessage("DamageEnemy", counterDamage); 
 						break;
 				}
 			}
 		}
 		else if (detectedA == 1 && detectedB == 4){
 			hi5 = true; 
+		}
+	}
+
+	/* --------------------------------------------------------------------------------------------------------------------------
+	 * NO ARGS. NO RETURN.
+	 * (1) generate a number of moves within the next seq of whatever speed
+	 * (2) generate the delay between moves 
+	 * -------------------------------------------------------------------------------------------------------------------------- */
+	
+	private void generateNextMove(){
+		if (currentSeqTime >= seqDelay){
+			currentMove++; 
 		}
 	}
 
