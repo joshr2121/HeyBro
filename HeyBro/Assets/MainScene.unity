@@ -733,8 +733,6 @@ MonoBehaviour:
   contactB: 
   detectedA: 0
   detectedB: 0
-  minSeqDelay: .699999988
-  maxSeqDelay: 1.29999995
   hp: 100
   turn: 0
   enemy: {fileID: 0}
@@ -1349,6 +1347,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f641b9f6925eab046989df52b6e1106d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  enemy: {fileID: 0}
+  hi5: 0
 --- !u!4 &2061117480
 Transform:
   m_ObjectHideFlags: 0
