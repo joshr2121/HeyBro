@@ -5,7 +5,7 @@ public class EnemyControls : MonoBehaviour {
 
 	public SequenceControls bros; 
 
-	public int hp;
+	public int hp = 100;
 	public int currentAttack; 
 	private enum attack { smack, siphoningGrasp, laserStrike };
 	public bool charging; 
@@ -17,6 +17,7 @@ public class EnemyControls : MonoBehaviour {
 	public float[][] attackParams = new float[3][] { new float[] { 25, 2, .02f, .01f }, new float[]{ 20, 2, .03f, .01f }, new float[] { 50, 3, .03f, .01f }};
 
 	void Start () {
+		hp = 100; 
 		charging = false; 
 		attacking = false; 
 	}
@@ -25,11 +26,11 @@ public class EnemyControls : MonoBehaviour {
 		
 	}
 
-	private void DamageEnemy(int damage){
+	public void DamageEnemy(int damage){
 		hp -= damage; 
 	}
 
-	private void enemyAttack(int atk){
+	public void enemyAttack(int atk){
 		switch (atk){
 			case (int) attack.smack:
 
@@ -54,7 +55,7 @@ public class EnemyControls : MonoBehaviour {
 	 * 
 	 * -------------------------------------------------------------------------------------------------------------------------- */
 
-	 private void getTurn(){
+	 public void getTurn(){
 	 	turn = bros.turn; 
 	 }
 
@@ -63,20 +64,20 @@ public class EnemyControls : MonoBehaviour {
 	 * 
 	 * -------------------------------------------------------------------------------------------------------------------------- */
 
-	private void generateAttack(){
+	public void generateAttack(){
 
 		if (!charging){
 			int atk;
-			atk = Random.Range (0, 101); 
+			atk = Random.Range (0, 100); 
 
 			// 20% chance to get laser strike
-			if (atk <= 20){
+			if (atk < 20){
 				currentAttack = (int) attack.laserStrike;
 				charging = true; 
 				chargeTurn = turn; 
 			}
 			// 30% chance to get siphoning grasp
-			else if (atk <= 50){
+			else if (atk < 50){
 				currentAttack = (int) attack.siphoningGrasp; 
 			}
 			// 50% chance to get smack 

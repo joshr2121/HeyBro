@@ -21,10 +21,6 @@ public class SequenceControls : MonoBehaviour {
 	private int minEnum = 0; 	// first index of the enum
 	private int maxEnum = 3;	// number of elements in the enum
 
-	public float minSeqDelay = 0.7f;		// min delay between moves in seq of certain speed
-	public float maxSeqDelay = 1.3f; 	// max delay between moves in seq of certain speed
-
-
 	// CONTACT INPUTS (person A and person B)
 	private bool palmA; 		// these will correspond to specific button inputs 
 	private bool fistA;
@@ -110,7 +106,7 @@ public class SequenceControls : MonoBehaviour {
 	 * (4) otherwise, do the same but to player A
 	 * -------------------------------------------------------------------------------------------------------------------------- */
 	
-	 private void readFromArduino(){
+	 public void readFromArduino(){
 	 	// (1) read from arduino into an array
 	 	sp.Read(byteBuffer, byteOffset, byteCount);
 
@@ -155,7 +151,7 @@ public class SequenceControls : MonoBehaviour {
 	 *		(4i)	if did all moves in sequence right, deal damage
 	 * 		(4ii)	finished the sequence, so prepare to receive attack 
 	 * -------------------------------------------------------------------------------------------------------------------------- */
-	private void battleProceed(){
+	public void battleProceed(){
 		if (hi5) { 
 			if (attacking){
 				if (!seqGenerated){
@@ -208,7 +204,7 @@ public class SequenceControls : MonoBehaviour {
 	 * (2) generate the delay between moves 
 	 * -------------------------------------------------------------------------------------------------------------------------- */
 	
-	private void generateNextMove(){
+	public void generateNextMove(){
 		if (currentSeqTime >= seqDelay){
 			currentMove++; 
 		}
@@ -220,7 +216,7 @@ public class SequenceControls : MonoBehaviour {
 	 * (2) generate the delay between moves 
 	 * -------------------------------------------------------------------------------------------------------------------------- */
 	
-	 private void generateSeqParams(){
+	public void generateSeqParams(){
 	 	currentSeq = Random.Range(0, 6); 
 	 	switch (currentSeq){
 	 		case (int) sequence.three:
@@ -277,7 +273,7 @@ public class SequenceControls : MonoBehaviour {
 	 * (3) generate a random command for each move in the array
 	 * -------------------------------------------------------------------------------------------------------------------------- */
 	
-	private void generateSequence(int seq){
+	public void generateSequence(int seq){
 		currentMove = 0; 
 		correctMoves = 0; 
 		contactA = new int[seqMoves];
@@ -297,7 +293,7 @@ public class SequenceControls : MonoBehaviour {
 	 * - false otherwise 
 	 * -------------------------------------------------------------------------------------------------------------------------- */
 
-	 private bool checkBothEvents(){
+	 public bool checkBothEvents(){
 	 	bool correctA = checkTouchA(contactA[currentMove]);
 	 	bool correctB = checkTouchB(contactB[currentMove]); 
 
@@ -315,7 +311,7 @@ public class SequenceControls : MonoBehaviour {
 	 * (4) Otherwise return false
 	 * -------------------------------------------------------------------------------------------------------------------------- */
 
-	private bool checkTouchA(int touchA){
+	public bool checkTouchA(int touchA){
 
 		palmA 	= (detectedA == 1);
 		fistA 	= (detectedA == 2);
@@ -363,7 +359,7 @@ public class SequenceControls : MonoBehaviour {
 	 * (4) Otherwise return false
 	 * -------------------------------------------------------------------------------------------------------------------------- */
 
-	private bool checkTouchB(int touchB){
+	public bool checkTouchB(int touchB){
 
 		palmB 	= (detectedB == 4);
 		fistB 	= (detectedB == 5);
@@ -403,7 +399,7 @@ public class SequenceControls : MonoBehaviour {
 		return false; 
 	}
 
-	private int enemyResponse(){
+	public int enemyResponse(){
 
 		elbowA 	= (detectedA == 3);
 		elbowB 	= (detectedB == 6);
@@ -422,6 +418,10 @@ public class SequenceControls : MonoBehaviour {
 		 else {
 		 	return (int) reaction.fail; 
 		 }
+	}
+
+	public void DamagePlayers(int damage){
+		hp -= damage; 
 	}
 
 }

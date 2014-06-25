@@ -3,6 +3,12 @@ using System.Collections;
 
 public class GameControl : MonoBehaviour {
 
+	public SequenceControls player;	// player script
+	public EnemyControls enemy; 	// enemy script 
+
+	public bool hi5;	// must highfive to begin battle
+	
+
 	void Start () {
 	
 	}
