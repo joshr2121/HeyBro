@@ -52,6 +52,7 @@
      <Compile Include="Assets\Scripts\HealthBarPlayer.cs" />
      <Compile Include="Assets\Scripts\SequenceControls.cs" />
      <Compile Include="Assets\Scripts\SequenceMouseControls.cs" />
+     <Compile Include="Assets\Scripts\Sequence_Queue.cs" />
      <Compile Include="Assets\Scripts\SplashScreen.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
