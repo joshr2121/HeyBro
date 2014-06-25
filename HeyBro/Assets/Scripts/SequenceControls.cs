@@ -53,6 +53,10 @@ public class SequenceControls : MonoBehaviour {
 	
 	// PLAYER STUFF
 	private int hp = 100; 
+	private bool attacking;
+	private bool defending; 
+	private enum reaction { block, counter, fail };
+
 
 
 
@@ -70,6 +74,10 @@ public class SequenceControls : MonoBehaviour {
 		touchDetectedB = false;
 
 		hi5 = false; 
+
+		hp = 100;
+		attacking = true;
+		defending = false;
 
 
 	}
@@ -127,31 +135,46 @@ public class SequenceControls : MonoBehaviour {
 	 }
 	 /* --------------------------------------------------------------------------------------------------------------------------
 	 * NO ARGS. NO RETURN.
-	 * (1) check if started battle i.e. IF HIGH FIVED
-	 * (2) if so, check if a sequence has already been generated 
+	 * (1) chec 
 	 * -------------------------------------------------------------------------------------------------------------------------- */
 	private void battleProceed(){
 		if (hi5) { 
-			if (!seqGenerated){
-				generateSeqParams(); 
-				generateSequence(currentSeq); 
-				seqGenerated = true; 
-			}
-			else {
-				if (checkBothEvents()){
-				 	correctMoves++; 
-					seqMoves--; 
+			if (attacking){
+				if (!seqGenerated){
+					generateSeqParams(); 
+					generateSequence(currentSeq); 
+					seqGenerated = true; 
 				}
-				// check if sequence is finished 
-				if (seqMoves <= 0){
-					// check if all moves in sequence were correctly done  
-					if (correctMoves >= seqMoves){ 
-						//deal damage
-						//gameObject.SendMessage("DamageEnemy", seqDamage);
+				else {
+					if (checkBothEvents()){
+					 	correctMoves++; 
+						seqMoves--; 
 					}
-					seqGenerated = false; // to generate a new sequence 
+					// check if sequence is finished 
+					if (seqMoves <= 0){
+						// check if all moves in sequence were correctly done  
+						if (correctMoves >= seqMoves){ 
+							//deal damage
+							//gameObject.SendMessage("DamageEnemy", seqDamage);
+						}
+						seqGenerated = false; // to generate a new sequence 
+						attacking = false;
+						defending = true; 
+					}
 				}
-			}		
+			}
+			else if (defending){
+				int resp = enemyResponse(); 
+				switch (resp){
+					case (int) reaction.fail:
+						// hp -= current enemy attack damage
+						break; 
+
+					case (int) reaction.counter:
+						
+						break;
+				}
+			}
 		}
 		else if (detectedA == 1 && detectedB == 4){
 			hi5 = true; 
@@ -345,6 +368,27 @@ public class SequenceControls : MonoBehaviour {
 		}
 		// (3) if haven't returned true = wrong input (CHECK ANY KEY?)
 		return false; 
+	}
+
+	private int enemyResponse(){
+
+		elbowA 	= (detectedA == 3);
+		elbowB 	= (detectedB == 6);
+
+		fistA 	= (detectedB == 2);
+		fistB 	= (detectedB == 5);
+
+		if (fistA && fistB){
+			return (int) reaction.block; 
+		}
+
+		else if (elbowA && elbowB){
+			return (int) reaction.counter; 
+		}
+
+		 else {
+		 	return (int) reaction.fail; 
+		 }
 	}
 
 }
