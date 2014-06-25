@@ -1,14 +1,23 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.IO.Ports; 
 
-public class SequenceControls : MonoBehaviour {
+public class SequenceMouseControls : MonoBehaviour {
 
 	// ARDUINO STUFF ("PORT" is not right)
 	SerialPort sp = new SerialPort("PORT", 9600);
 	public byte[] byteBuffer; 
 	public int byteOffset;
 	public int byteCount; 
+
+	// CONTACT INPUTS (person A and person B)
+	private bool palmA 	= Input.GetKeyDown("Alpha1"); 		// these will correspond to specific button inputs 
+	private bool fistA 	= Input.GetKeyDown("Alpha2");
+	private bool elbowA	= Input.GetKeyDown("Alpha3");
+
+	private bool palmB	= Input.GetKeyDown("Alpha8"); 
+	private bool fistB	= Input.GetKeyDown("Alpha9");
+	private bool elbowB	= Input.GetKeyDown("Alpha0");
 	
 	// TO CREATE THE EVENTS THAT WILL BE CHECKED
 	private enum touch { palm, fist, elbow }; 
@@ -19,31 +28,22 @@ public class SequenceControls : MonoBehaviour {
 	private int minEnum = 0; 	// first index of the enum
 	private int maxEnum = 3;	// number of elements in the enum
 
+	public int minMovesPerSeq = 3;		// min number of moves within sequence of moves of certain speed
+	public int maxMovesPerSeq = 5; 		// max number of moves within seq of moves of certain speed
 	public float minSeqDelay = 0.7f;		// min delay between moves in seq of certain speed
 	public float maxSeqDelay = 1.3f; 	// max delay between moves in seq of certain speed
-
-
-	// CONTACT INPUTS (person A and person B)
-	private bool palmA; 		// these will correspond to specific button inputs 
-	private bool fistA;
-	private bool elbowA;
-
-	private bool palmB; 
-	private bool fistB;
-	private bool elbowB;
 
 	// TO CHECK THAT THE RIGHT CONTACT WAS MADE
 	private bool touchDetectedA;
 	private bool touchDetectedB; 
 
-	// TO KEEP TRACK OF CURRENT MOVE
-	public int currentSeq; 
+	// CHANGE FOR EACH LEVEL
+	public int numMoves;			// total number of moves to do in the level
+	public int movesPerSeqLen; 		// number of moves for each fast/slow sequence
+	public int numSequences; 
 	public int currentMove; 		// which move are we at in the overall sequence/in total moves
-	public int numSequences;
-	public float currentSeqTime; 
-	public float currentWindow; 
-	public bool correctCombo; 
-
+	public float seqDelay; 			// delay between moves for each sequence speed
+	public float currentSeqTime; 	// how much time passed since the current sequence of a certain speed started
 
 	private float[][] sequences; 
 
@@ -57,25 +57,28 @@ public class SequenceControls : MonoBehaviour {
 		touchDetectedA = false; 
 		touchDetectedB = false;
 
-		// 0: num sets of that sequence, 1: num moves per sequence, 2: dmg, 3: delay, 4: window
+		currentMove = 0;  
+
+		movesPerSeqLen = 0; 
+		generateSeqParams(); 
+
 		if (Application.loadedLevelName.Equals("SpaceJellyfish")){
-			sequences = new float[2][5];
 			sequences[0] = { 2, 2, 25, 1, .2f };
 			sequences[1] = { 1, 3, 40, .9f, .175f };
 		}
 		else if (Application.loadedLevelName.Equals("SentientMeteor")){
-			sequences = new float[3][5];
-			sequences[0] = { 1,	2, 25, 1, .2f };
-			sequences[1] = { 2,	3, 40, .9f, .175f };
-			sequences[2] = { 1,	4, 75, .8f, .150f };
+			sequences[0] = { 1, 2, 25, 1, .2f };
+			sequences[1] = { 2, 3, 40, .9f, .175f };
+			sequences[2] = { 1, 4, 75, .8f, .150f };
 		}
 		else if (Application.loadedLevelName.Equals("RobotCrimelord")){
-			sequences = new float[4][5];
 			sequences[0] = { 1, 3, 40, .9f, .175f };
 			sequences[1] = { 2, 4, 75, .8f, .150f };
 			sequences[2] = { 2, 5, 100, .75f, .150f };
 			sequences[3] = { 1, 6, 150, .7f, .125f };
 		}
+
+
 	}
 
 	void Update(){
@@ -85,14 +88,6 @@ public class SequenceControls : MonoBehaviour {
 
 	void FixedUpdate(){
 		currentSeqTime += Time.deltaTime; 
-		currentWindow += Time.deltaTime; 
-
-		if (currentSeqTime >= sequences[currentSeq][3]){
-			currentSeqTime = 0;
-			if (correctCombo){
-				
-			}
-		}
 	}
 
 	/* --------------------------------------------------------------------------------------------------------------------------
@@ -199,10 +194,6 @@ public class SequenceControls : MonoBehaviour {
 
 	private bool checkTouchA(int touchA){
 
-		palmA 	= (detectedA == 1);
-		fistA 	= (detectedA == 2);
-		elbowA 	= (detectedA == 3);
-
 		// (1) touch detected from player A
 		touchDetectedA = true;
 
@@ -242,10 +233,6 @@ public class SequenceControls : MonoBehaviour {
 	 * -------------------------------------------------------------------------------------------------------------------------- */
 
 	private bool checkTouchB(int touchB){
-
-		palmB 	= (detectedB == 4);
-		fistB 	= (detectedB == 5);
-		elbowB 	= (detectedB == 6);
 
 		// (1) touch detected from player B
 		touchDetectedB = true; ; 
