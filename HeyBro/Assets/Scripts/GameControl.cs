@@ -6,7 +6,11 @@ public class GameControl : MonoBehaviour {
 	public SequenceControls player;	// player script
 	public EnemyControls enemy; 	// enemy script 
 
-	public bool hi5;	// must highfive to begin battle
+	public int turn; 
+	public bool charging; 
+
+	public bool hi5; 				// begin and end a battle with a hi5
+	public bool seqGenerated; 		// true if a sequence has been generated but not completed 
 	
 
 	void Start () {
@@ -36,8 +40,42 @@ public class GameControl : MonoBehaviour {
 	 * PLAYER'S TURN AGAIN
 	 * -------------------------------------------------------------------------------------------------------------------------- */
 
-	 // (1) generate a sequence
+		if (hi5){
+			playerTurn(); 
+		}
 
+		else if (player.detectedA == 1 && player.detectedB == 4){
+			hi5 = true; 
+		}	
+
+
+	}
+
+	private void playerTurn(){
+		// (1) generate a sequence
+		if (!seqGenerated){
+			player.generateSeqParams(); 
+			player.generateSequence(player.currentSeq);
+			seqGenerated = true; 
+			turn++; 	
+		}	
+		else {
+			if (player.checkBothEvents()){
+			 	player.correctMoves++; 
+			}
+			player.seqMoves--; 
+			// check if sequence is finished 
+			if (player.seqMoves <= 0){
+				// check if all moves in sequence were correctly done  
+				if (player.correctMoves >= player.seqMoves){ 
+					//deal damage
+					gameObject.SendMessage("DamageEnemy", player.seqDamage);
+				}
+				player.seqGenerated = false; // to generate a new sequence 
+				player.attacking = false;
+				player.defending = true; 
+			}
+		}
 	}
 
 }

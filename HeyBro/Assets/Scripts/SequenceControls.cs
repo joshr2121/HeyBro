@@ -13,49 +13,49 @@ public class SequenceControls : MonoBehaviour {
 	public int byteCount; 
 	
 	// TO CREATE THE EVENTS THAT WILL BE CHECKED
-	private enum touch { palm, fist, elbow }; 
+	public enum touch { palm, fist, elbow }; 
 	public int[] contactA;
 	public int[] contactB; 
 	public int detectedA;
 	public int detectedB; 
-	private int minEnum = 0; 	// first index of the enum
-	private int maxEnum = 3;	// number of elements in the enum
+	public int minEnum = 0; 	// first index of the enum
+	public int maxEnum = 3;	// number of elements in the enum
 
 	// CONTACT INPUTS (person A and person B)
-	private bool palmA; 		// these will correspond to specific button inputs 
-	private bool fistA;
-	private bool elbowA;
+	public bool palmA; 		// these will correspond to specific button inputs 
+	public bool fistA;
+	public bool elbowA;
 
-	private bool palmB; 
-	private bool fistB;
-	private bool elbowB;
+	public bool palmB; 
+	public bool fistB;
+	public bool elbowB;
 
 	// TO CHECK THAT THE RIGHT CONTACT WAS MADE
-	private bool touchDetectedA;
-	private bool touchDetectedB; 
+	public bool touchDetectedA;
+	public bool touchDetectedB; 
 
-	private bool hi5; 				// begin and end a battle with a hi5
-	private bool seqGenerated; 		// true if a sequence has been generated but not completed 
+	public bool hi5; 				// begin and end a battle with a hi5
+	public bool seqGenerated; 		// true if a sequence has been generated but not completed 
 
 	// TO KEEP TRACK OF CURRENT MOVE
-	private enum sequence { three, fourA, fourB, fiveA, fiveB, six }; 
-	private int currentSeq; 		// will take one of the enum values/indeces
-	private int seqMoves;			// which sequence type within the sequence enum
-	private int seqDamage; 			// damage to deal if succeed sequence
-	private float seqDelay; 		// delay between moves in current sequence
-	private float seqWindow; 		// response window for current seq
+	public enum sequence { three, fourA, fourB, fiveA, fiveB, six }; 
+	public int currentSeq; 		// will take one of the enum values/indeces
+	public int seqMoves;			// which sequence type within the sequence enum
+	public int seqDamage; 			// damage to deal if succeed sequence
+	public float seqDelay; 		// delay between moves in current sequence
+	public float seqWindow; 		// response window for current seq
 
-	private int currentMove; 		// the move we're at in the current sequence, used as index for contactA/contactB arrays to get the move we want 
-	private int correctMoves; 		// number of correctly done moves in the current sequence
-	private float currentSeqTime; 	// currently accumulated time since the sequence began
+	public int currentMove; 		// the move we're at in the current sequence, used as index for contactA/contactB arrays to get the move we want 
+	public int correctMoves; 		// number of correctly done moves in the current sequence
+	public float currentSeqTime; 	// currently accumulated time since the sequence began
 	
 	// PLAYER STUFF
 	public int hp = 100; 			
-	private bool attacking;			
-	private bool defending; 
-	private enum reaction { block, counter, fail };
+	public bool attacking;			
+	public bool defending; 
+	public enum reaction { block, counter, fail };
 
-	private int counterDamage = 10;
+	public int counterDamage = 10;
 	public int turn;  
 
 	// ENEMY STUFF
@@ -65,7 +65,7 @@ public class SequenceControls : MonoBehaviour {
 
 
 	// 0: num moves per sequence, 1: dmg, 2: delay, 3: window
-	private float[][] sequences = 	new float[4][] { new float[] { 3, 40, .9f, .175f }, new float[]{ 4, 75, .8f, .150f }, 
+	public float[][] sequences = 	new float[4][] { new float[] { 3, 40, .9f, .175f }, new float[]{ 4, 75, .8f, .150f }, 
 													 new float[] { 5, 100, .75f, .150f }, new float[] { 6, 150, .7f, .125f }};	
 
 	void Start(){
