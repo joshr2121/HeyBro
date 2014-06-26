@@ -11,6 +11,11 @@ public class GameControl : MonoBehaviour {
 
 	public bool hi5; 				// begin and end a battle with a hi5
 	public bool seqGenerated; 		// true if a sequence has been generated but not completed 
+
+	public enum reaction { block, counter, fail };
+
+	public float responseTime; 
+
 	
 
 	void Start () {
@@ -39,15 +44,28 @@ public class GameControl : MonoBehaviour {
 	 * PLAYER'S TURN AGAIN
 	 * -------------------------------------------------------------------------------------------------------------------------- */
 
+
+	}
+
+	void FixedUpdate(){
+		responseTime += Time.deltaTime; 
+
 		if (hi5){
 			playerTurn(); 
+			enemyTurn(); 
 		}
 
 		else if (player.detectedA == 1 && player.detectedB == 4){
 			hi5 = true; 
 		}	
 
+		if (enemy.hp <= 0){
+			Application.LoadLevel("Win");
+		}
 
+		else if (player.hp <= 0){
+			Application.LoadLevel("Lose");
+		}
 	}
 
 	private void playerTurn(){
@@ -79,10 +97,34 @@ public class GameControl : MonoBehaviour {
 
 	private void enemyTurn(){
 		enemy.generateAttack(); 
+		responseTime = 0;
+		playerResponse(); 
 	}
 
 	private void playerResponse(){
+		int resp = player.enemyResponse(); 
+		switch (resp){
+			case (int) reaction.counter:
+				if (responseTime <= enemy.attackParams[(int) enemy.currentAttack][3]){
+					gameObject.SendMessage("DamageEnemy", player.counterDamage); 
+					responseTime = 0; 
+				}
+				break;
 
+
+			case (int) reaction.fail:
+				if (responseTime <= enemy.attackParams[(int) enemy.currentAttack][2]){
+					player.hp -= (int) enemy.attackParams[(int) enemy.currentAttack][0]; 
+					responseTime = 0;
+				}
+				break; 
+
+			case (int) reaction.block:
+				break;
+
+			default:
+				break; 
+		}
 	}
 
 	private void enemyHPcheck(){
