@@ -5,7 +5,7 @@ using System.IO.Ports;
 public class SplashScreen : MonoBehaviour {
 
 	// ARDUINO STUFF ("PORT" is not right)
-	SerialPort sp = new SerialPort("PORT", 9600);
+	SerialPort sp = new SerialPort("COM3", 9600);
 	public byte[] byteBuffer; 
 	public int byteOffset;
 	public int byteCount;

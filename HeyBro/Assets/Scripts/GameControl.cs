@@ -62,11 +62,13 @@ public class GameControl : MonoBehaviour {
 		}	
 
 		if (enemy.hp <= 0){
-			Application.LoadLevel("Win");
+			Debug.LogWarning ("Win");
+//			Application.LoadLevel("Win");
 		}
 
 		else if (player.hp <= 0){
-			Application.LoadLevel("Lose");
+			Debug.LogWarning ("Lose");
+//			Application.LoadLevel("Lose");
 		}
 	}
 
