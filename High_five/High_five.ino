@@ -31,7 +31,7 @@
 
 unsigned char PadNote[6] = {52,16,66,63,40,65};         // MIDI notes from 0 to 127 (Mid C = 60)
 
-int PadCutOff[6] = {200,100,500,400,700,500};           // Minimum Analog value to cause a drum hit
+int PadCutOff[6] = {25,25,500,400,700,500};           // Minimum Analog value to cause a drum hit
 
 int MaxPlayTime[6] = {90,90,90,90,90,90};               // Cycles before a 2nd hit is allowed
 

@@ -37,7 +37,7 @@ public class SplashScreen : MonoBehaviour {
 				readFromArduino(); 
 
 				if (in1 == 1 && in2 == 4){
-				//	Application.LoadLevel("MainScene");
+					Application.LoadLevel("MainScene");
 				}
 			}
 

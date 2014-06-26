@@ -106,6 +106,12 @@ public class GameControl : MonoBehaviour {
 		seqQueueLeft.LoadSequence (player.contactA, player.seqDelay);
 		seqQueueRight.LoadSequence (player.contactB, player.seqDelay);
 		//Hax!
+		Invoke ("checkBlocked", 4.0f);
+	}
+		
+	private void checkBlocked () {
+		if (!player.blocked) {
+		}
 		Invoke ("startPlayerTurn", 5.0f);
 	}
 
