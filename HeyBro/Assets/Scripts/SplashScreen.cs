@@ -12,8 +12,10 @@ public class SplashScreen : MonoBehaviour {
 
 	public int in1;
 	public int in2; 
+	public int current; 
 
 	public bool inputted1; 
+	public bool inputted2; 
 
 	public float readDelay;
 	public float currentTime; 
@@ -72,22 +74,43 @@ public class SplashScreen : MonoBehaviour {
 	 	// (1) read from arduino into an array
 //	 	sp.Read(byteBuffer, byteOffset, byteCount);
 
-		if (!inputted1) {
-			in1 = int.Parse (sp.ReadLine ()); 
-			inputted1 = true; 
+		print ("in1 = " + in1 + ", in2 = " + in2);
+
+		current = int.Parse (sp.ReadLine()); 
+
+		if (!inputted1 && !inputted2) {
+			if (current > 0 && current <= 2){
+				in1 = current; 
+				inputted1 = true; 
+			}
+			else if (current > 0 && current > 2){
+				in2 = current; 
+				inputted2 = true; 
+			}
 		}
 
-		if (inputted1) {
-			int current = int.Parse (sp.ReadLine()); 
-			if (currentTime >= readDelay){
-				inputted1 = false; 
-			}
-			else if (current != in1){
-				in2 = current; 
+		else if (inputted1 && !inputted2) {
+			if (current > 0 && current > 2){
+				in2 = current;
+				inputted2 = true; 
 			}
 		}
-		print ("in1 = " + in1 + ", in2 = " + in2); 
-	
+
+		else if (!inputted1 && inputted2){
+			if (current > 0 && current <= 2){
+				in1 = current;
+				inputted1 = true; 
+			}
+		}
+
+
+		if (in1 > 0 && in2 > 0 && currentTime >= readDelay){
+				inputted1 = false; 
+				inputted2 = false; 
+				in1 = 0;
+				in2 = 0;
+				currentTime = 0; 
+		}
 
 
 		/*
