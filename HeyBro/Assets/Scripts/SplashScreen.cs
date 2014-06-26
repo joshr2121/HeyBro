@@ -16,6 +16,10 @@ public class SplashScreen : MonoBehaviour {
 
 	public float readDelay;
 	public float currentTime; 
+	
+	public bool loadingNewScene;
+	public AudioSource srcLoading;
+	public AudioSource srcMusic;
 
 	void Start () {
 		 // ARDUINO STUFF
@@ -26,10 +30,15 @@ public class SplashScreen : MonoBehaviour {
 		in2 = 0; 
 		readDelay = 5.0f;
 		inputted1 = false; 
+		loadingNewScene = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		if (loadingNewScene) {
+			srcMusic.volume -= 0.001f;
+		}
 
 		if (sp.IsOpen){
 
@@ -37,7 +46,11 @@ public class SplashScreen : MonoBehaviour {
 				readFromArduino(); 
 
 				if (in1 == 1 && in2 == 4){
-					Application.LoadLevel("MainScene");
+					if (!loadingNewScene) {
+						srcLoading.Play ();
+						loadingNewScene = true;
+						Invoke ("loadMainScene", 3.0f);
+					}
 				}
 			}
 
@@ -99,4 +112,8 @@ public class SplashScreen : MonoBehaviour {
 			}
 		}
 	 }
+	 
+	void loadMainScene () {
+		Application.LoadLevel("MainScene");
+	}
 }
