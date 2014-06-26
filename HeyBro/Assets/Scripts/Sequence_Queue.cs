@@ -20,7 +20,6 @@ public class Sequence_Queue : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		sequenceSprites = new Sprite[3] {pictogramHighfive, pictogramFist, pictogramElbow};
-		seqDelay = 0.5f;
 		yDistanceBetweenPictograms = 0.8f;
 		yTicksBetweenPositions = 2f;
 	}
@@ -46,7 +45,8 @@ public class Sequence_Queue : MonoBehaviour {
 		for (int i = seq.Length; i < sequenceObjects.Length; i++) {
 			sequenceObjects[i].renderer.enabled = false;
 		}
-		seqDelay = delay / yTicksBetweenPositions;
+		//Multiplying delay for easier debugging
+		seqDelay = 10*delay / yTicksBetweenPositions;
 	}
 	public void MoveSpriteDown(){
 		float yTranslation = yDistanceBetweenPictograms / yTicksBetweenPositions;

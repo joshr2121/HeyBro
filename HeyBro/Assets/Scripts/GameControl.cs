@@ -12,6 +12,7 @@ public class GameControl : MonoBehaviour {
 	public int turn; 
 	public bool charging;
 	public bool playersTurn;
+	public bool turnOver;
 
 	public bool hi5; 				// begin and end a battle with a hi5
 	public bool seqGenerated; 		// true if a sequence has been generated but not completed 
@@ -24,6 +25,7 @@ public class GameControl : MonoBehaviour {
 
 	void Start () {
 		playersTurn = true;
+		turnOver = false;
 		hi5 = true;
 	}
 
@@ -90,7 +92,9 @@ public class GameControl : MonoBehaviour {
 		}
 		else {
 			if (player.checkBothEvents()){
-			 	player.correctMoves++; 
+				seqQueueLeft.sequenceObjects[player.correctMoves].GetComponent<SpriteRenderer>().enabled = false;
+				seqQueueRight.sequenceObjects[player.correctMoves].GetComponent<SpriteRenderer>().enabled = false;
+				player.correctMoves++;
 			}
 			player.seqMoves--; 
 			// check if sequence is finished 
@@ -98,7 +102,7 @@ public class GameControl : MonoBehaviour {
 				// check if all moves in sequence were correctly done  
 				if (player.correctMoves >= player.seqMoves){ 
 					//deal damage
-					gameObject.SendMessage("DamageEnemy", player.seqDamage);
+				//	enemy.DamageEnemy(player.seqDamage);
 				}
 				player.seqGenerated = false; // to generate a new sequence 
 				player.attacking = false;

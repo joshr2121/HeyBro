@@ -29,7 +29,7 @@ public class SequenceControls : MonoBehaviour {
 	public bool fistA;
 	public bool elbowA;
 
-	public bool palmB; 
+	public bool palmB;
 	public bool fistB;
 	public bool elbowB;
 
@@ -64,15 +64,12 @@ public class SequenceControls : MonoBehaviour {
 	// ENEMY STUFF
 	public EnemyControls enemy; 
 
-
-
-
 	// 0: num moves per sequence, 1: dmg, 2: delay, 3: window
 	public float[][] sequences = 	new float[4][] { new float[] { 3, 50, .9f, .175f }, new float[]{ 4, 75, .8f, .150f }, 
 													 new float[] { 5, 100, .75f, .150f }, new float[] { 6, 150, .7f, .125f }};	
 
 	void Start(){
-
+		/**
 		if (keyControl){
 			palmA 	= Input.GetKeyDown(KeyCode.Alpha1); 		// these will correspond to specific button inputs 
 			fistA 	= Input.GetKeyDown(KeyCode.Alpha2);
@@ -82,8 +79,8 @@ public class SequenceControls : MonoBehaviour {
 			fistB	= Input.GetKeyDown(KeyCode.Alpha9);
 			elbowB	= Input.GetKeyDown(KeyCode.Alpha0);
 		}
-
-		else {
+		*/
+		if (!keyControl) {
 			// ARDUINO STUFF
 			sp.Open();				// open the port
 			sp.ReadTimeout = 1; 	// how often unity checks (throws exception if isn't open)
@@ -101,7 +98,6 @@ public class SequenceControls : MonoBehaviour {
 
 		turn = 0; 
 
-
 	}
 
 	void Update(){
@@ -114,6 +110,17 @@ public class SequenceControls : MonoBehaviour {
 		if (!keyControl){
 			readFromArduino(); 
 		}
+		/**
+		else {
+			palmA 	= Input.GetKey(KeyCode.Alpha1); 		// these will correspond to specific button inputs 
+			fistA 	= Input.GetKey(KeyCode.Alpha2);
+			elbowA	= Input.GetKey(KeyCode.Alpha3);
+			
+			palmB	= Input.GetKey(KeyCode.Alpha8); 
+			fistB	= Input.GetKey(KeyCode.Alpha9);
+			elbowB	= Input.GetKey(KeyCode.Alpha0);
+		}
+		*/
 	}
 
 	/* --------------------------------------------------------------------------------------------------------------------------
@@ -314,8 +321,8 @@ public class SequenceControls : MonoBehaviour {
 	 public bool checkBothEvents(){
 	 	bool correctA = checkTouchA(contactA[currentMove]);
 	 	bool correctB = checkTouchB(contactB[currentMove]); 
-
-	 	if (correctA && correctB){
+		if (correctA && correctB){
+			generateNextMove();
 	 		return true; 
 	 	}
 		return false; 
@@ -336,12 +343,17 @@ public class SequenceControls : MonoBehaviour {
 			fistA 	= (detectedA == 2);
 			elbowA 	= (detectedA == 3);
 		}
-
+		
+		else {
+			palmA 	= Input.GetKey(KeyCode.Alpha1); 		// these will correspond to specific button inputs 
+			fistA 	= Input.GetKey(KeyCode.Alpha2);
+			elbowA	= Input.GetKey(KeyCode.Alpha3);
+		}
 		// (1) touch detected from player A
 		touchDetectedA = true;
 
 		// (2) check that hit within window
-		if (currentSeqTime < seqWindow){
+//		if (currentSeqTime < seqWindow){
 			// (3) if right input, return true
 			switch (touchA){ 
 				case (int) touch.palm:
@@ -366,7 +378,7 @@ public class SequenceControls : MonoBehaviour {
 					break;
 
 			}
-		}
+//		}
 		// (4) if haven't returned true = wrong input (CHECK ANY KEY?)
 		return false; 
 	}
@@ -386,12 +398,18 @@ public class SequenceControls : MonoBehaviour {
 			fistB 	= (detectedB == 5);
 			elbowB 	= (detectedB == 6);
 		}
+		
+		else {
+			palmB	= Input.GetKey(KeyCode.Alpha8); 
+			fistB	= Input.GetKey(KeyCode.Alpha9);
+			elbowB	= Input.GetKey(KeyCode.Alpha0);
+		}
 
 		// (1) touch detected from player B
-		touchDetectedB = true; ; 
-
+		touchDetectedB = true; 
+		
 		// (2) if the players hit within the window of time 
-		if (currentSeqTime < seqWindow){
+		//if (currentSeqTime < seqWindow){
 			// (3) if right input, return true
 			switch (touchB){
 				case (int) touch.palm:
@@ -416,7 +434,7 @@ public class SequenceControls : MonoBehaviour {
 					break;
 			
 			}
-		}
+		//}
 		// (3) if haven't returned true = wrong input (CHECK ANY KEY?)
 		return false; 
 	}
