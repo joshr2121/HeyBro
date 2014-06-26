@@ -187,7 +187,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 45884e335c3653247b57e6f149ed99db, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &224507140
 GameObject:
@@ -683,7 +683,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 9dbec19c441e72741a77b0fc47d0ef12, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &608541067
 GameObject:
@@ -911,6 +911,9 @@ MonoBehaviour:
   - {fileID: 843233044}
   - {fileID: 537750676}
   - {fileID: 560857373}
+  palmSprite: {fileID: 21300000, guid: c8362d81ffc377b4d89b9d1c20ed32e3, type: 3}
+  fistSprite: {fileID: 21300000, guid: 617c5c062663f504eb45d02a14152b42, type: 3}
+  elbowSprite: {fileID: 21300000, guid: db2605b21814b8e46a9fc31befcacbb6, type: 3}
 --- !u!1 &1456414801
 GameObject:
   m_ObjectHideFlags: 0
@@ -1245,6 +1248,9 @@ MonoBehaviour:
   - {fileID: 1456414801}
   - {fileID: 476131617}
   - {fileID: 2134559251}
+  palmSprite: {fileID: 21300000, guid: c8362d81ffc377b4d89b9d1c20ed32e3, type: 3}
+  fistSprite: {fileID: 21300000, guid: 617c5c062663f504eb45d02a14152b42, type: 3}
+  elbowSprite: {fileID: 21300000, guid: db2605b21814b8e46a9fc31befcacbb6, type: 3}
 --- !u!1 &1801784207
 GameObject:
   m_ObjectHideFlags: 0
@@ -1336,7 +1342,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1918594871}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.779224813, y: 1.24805391, z: -10}
+  m_LocalPosition: {x: 2.15794325, y: 1.0772891, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 131105134}
@@ -1370,12 +1376,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f641b9f6925eab046989df52b6e1106d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  enemy: {fileID: 0}
+  player: {fileID: 608541069}
+  enemy: {fileID: 1918594872}
   turn: 0
   charging: 0
   hi5: 0
   seqGenerated: 0
+  responseTime: 0
 --- !u!4 &2061117480
 Transform:
   m_ObjectHideFlags: 0

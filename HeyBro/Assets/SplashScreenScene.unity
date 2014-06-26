@@ -83,6 +83,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 56605398}
   - 212: {fileID: 56605397}
+  - 114: {fileID: 56605399}
   m_Layer: 0
   m_Name: Splash Screen
   m_TagString: Untagged
@@ -124,6 +125,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!114 &56605399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 56605396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d14f7433883c9a949b8cd6be0037bc02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  byteBuffer: 
+  byteOffset: 0
+  byteCount: 0
+  detectedA: 0
+  detectedB: 0
 --- !u!1 &318546950
 GameObject:
   m_ObjectHideFlags: 0
