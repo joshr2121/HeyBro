@@ -99,7 +99,7 @@ Transform:
   m_GameObject: {fileID: 59083791}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.51366806, y: 3.94925857, z: 1}
-  m_LocalScale: {x: 5, y: 2, z: 1}
+  m_LocalScale: {x: 5, y: .5, z: 1}
   m_Children: []
   m_Father: {fileID: 595217074}
   m_RootOrder: 0
@@ -123,7 +123,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a55a6a93d4e1c004b82c188b9ea24617, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c0821417ff68db2469ae79ece4636b1b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &59083794
 MonoBehaviour:
@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   max_XScale: 5
-  yScale: 2
+  yScale: .5
   enemy: {fileID: 1918594872}
 --- !u!1 &131105133
 GameObject:
@@ -214,7 +214,7 @@ Transform:
   m_GameObject: {fileID: 224507140}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.44184494, y: -.42701456, z: 1}
-  m_LocalScale: {x: 3, y: 2, z: 1}
+  m_LocalScale: {x: 3, y: .5, z: 1}
   m_Children: []
   m_Father: {fileID: 595217074}
   m_RootOrder: 1
@@ -238,7 +238,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5665c976d0c5c534ebd848faeae9a613, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1cb7e22c775f30e43b1c5bdf770be79c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &224507143
 MonoBehaviour:
@@ -252,7 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   max_XScale: 3
-  yScale: 2
+  yScale: .5
   players: {fileID: 608541069}
 --- !u!1 &355821579
 GameObject:
@@ -924,7 +924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27b3456f1abb26949b771e6c0ce3e2e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sequenceSprites:
+  sequenceObjects:
   - {fileID: 515714424}
   - {fileID: 1801784207}
   - {fileID: 1677016744}
@@ -934,6 +934,10 @@ MonoBehaviour:
   pictogramHighfive: {fileID: 21300000, guid: c2cf446b09182d94c8940f5c68980589, type: 3}
   pictogramFist: {fileID: 21300000, guid: c2cf446b09182d94c8940f5c68980589, type: 3}
   pictogramElbow: {fileID: 21300000, guid: c2cf446b09182d94c8940f5c68980589, type: 3}
+  player: {fileID: 608541069}
+  seqDelay: 0
+  currentTime: 0
+  yTranslation: .200000003
 --- !u!1 &1456414801
 GameObject:
   m_ObjectHideFlags: 0
@@ -1214,7 +1218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27b3456f1abb26949b771e6c0ce3e2e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sequenceSprites:
+  sequenceObjects:
   - {fileID: 366148269}
   - {fileID: 355821579}
   - {fileID: 488685897}
@@ -1224,6 +1228,10 @@ MonoBehaviour:
   pictogramHighfive: {fileID: 21300000, guid: c2cf446b09182d94c8940f5c68980589, type: 3}
   pictogramFist: {fileID: 21300000, guid: c2cf446b09182d94c8940f5c68980589, type: 3}
   pictogramElbow: {fileID: 21300000, guid: c2cf446b09182d94c8940f5c68980589, type: 3}
+  player: {fileID: 608541069}
+  seqDelay: 0
+  currentTime: 0
+  yTranslation: .200000003
 --- !u!1 &1801784207
 GameObject:
   m_ObjectHideFlags: 0

@@ -68,7 +68,7 @@ public class SequenceControls : MonoBehaviour {
 
 
 	// 0: num moves per sequence, 1: dmg, 2: delay, 3: window
-	public float[][] sequences = 	new float[4][] { new float[] { 3, 40, .9f, .175f }, new float[]{ 4, 75, .8f, .150f }, 
+	public float[][] sequences = 	new float[4][] { new float[] { 3, 50, .9f, .175f }, new float[]{ 4, 75, .8f, .150f }, 
 													 new float[] { 5, 100, .75f, .150f }, new float[] { 6, 150, .7f, .125f }};	
 
 	void Start(){

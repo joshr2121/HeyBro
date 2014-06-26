@@ -3,8 +3,8 @@ using System.Collections;
 
 public class HealthBarPlayer : MonoBehaviour {
 
-	public int max_XScale;
-	public int yScale;
+	public float max_XScale;
+	public float yScale;
 	public SequenceControls players;
 
 	// Use this for initialization

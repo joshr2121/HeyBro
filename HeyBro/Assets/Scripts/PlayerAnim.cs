@@ -12,7 +12,7 @@ public class PlayerAnim : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		gameObject.GetComponent<SpriteRenderer>().sprite = elbow;
+		gameObject.GetComponent<SpriteRenderer>().sprite = handsUp;
 	}
 	
 	// Update is called once per frame

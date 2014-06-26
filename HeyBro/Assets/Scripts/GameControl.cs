@@ -70,6 +70,8 @@ public class GameControl : MonoBehaviour {
 			Debug.LogWarning ("Lose");
 //			Application.LoadLevel("Lose");
 		}
+		player.attacking = true; 
+		player.defending = false; 
 	}
 
 	private void playerTurn(){
@@ -131,12 +133,5 @@ public class GameControl : MonoBehaviour {
 		}
 	}
 
-	private void enemyHPcheck(){
-
-	}
-
-	private void playerHPcheck(){
-
-	}
 
 }
