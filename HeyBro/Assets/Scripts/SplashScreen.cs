@@ -9,6 +9,9 @@ public class SplashScreen : MonoBehaviour {
 	public byte[] byteBuffer; 
 	public int byteOffset;
 	public int byteCount;
+	public string s; 
+	public int byt; 
+	public char[] bytes; 
 
 	// TO CHECK THAT THE RIGHT CONTACT WAS MADE
 	private bool touchDetectedA;
@@ -53,7 +56,21 @@ public class SplashScreen : MonoBehaviour {
 	
 	 private void readFromArduino(){
 	 	// (1) read from arduino into an array
-	 	sp.Read(byteBuffer, byteOffset, byteCount);
+	 	//sp.Read(byteBuffer, byteOffset, byteCount);
+		s = sp.ReadLine ();
+		//sp.Read (bytes, byteOffset, byteCount); 
+		//byt = int.Parse (sp.ReadLine ()); 
+
+		//print (byt); 
+
+		print ("string " + s); 
+		//print ("char array " + bytes); 
+		//print (byt); 
+		
+
+	 	for (int i = 0; i < byteBuffer.Length; i++){
+	 		print (byteBuffer[i]);
+	 	}
 
 	 	// (2) check if current byte 
 	 	if (byteBuffer[0] < 4){
