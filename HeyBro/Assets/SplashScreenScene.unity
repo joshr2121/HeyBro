@@ -111,7 +111,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a8dad71a797730d41ba95382a6560412, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eb531d8e73020d8429c7ac5daee60905, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &56605398
 Transform:
@@ -121,7 +121,7 @@ Transform:
   m_GameObject: {fileID: 56605396}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 1}
+  m_LocalScale: {x: .949999988, y: .949999988, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -136,9 +136,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d14f7433883c9a949b8cd6be0037bc02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  byteBuffer: 
-  byteOffset: 0
-  byteCount: 0
   in1: 0
   in2: 0
   current: 0
@@ -146,8 +143,6 @@ MonoBehaviour:
   inputted2: 0
   readDelay: 0
   currentTime: 0
-  detectedA: 0
-  detectedB: 0
 --- !u!1 &318546950
 GameObject:
   m_ObjectHideFlags: 0
