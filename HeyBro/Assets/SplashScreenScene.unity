@@ -146,6 +146,7 @@ MonoBehaviour:
   currentTime: 0
   loadingNewScene: 0
   srcLoading: {fileID: 56605400}
+  srcMusic: {fileID: 318546951}
 --- !u!82 &56605400
 AudioSource:
   m_ObjectHideFlags: 0
