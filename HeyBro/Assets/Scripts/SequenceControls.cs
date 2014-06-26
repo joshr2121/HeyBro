@@ -53,9 +53,10 @@ public class SequenceControls : MonoBehaviour {
 	public float currentSeqTime; 	// currently accumulated time since the sequence began
 	
 	// PLAYER STUFF
-	public int hp; 			
-	public bool attacking;			
-	public bool defending; 
+	public int hp;
+	public int maxHP;		
+//	public bool attacking;			
+//	public bool defending; 
 	public enum reaction { block, counter, fail };
 
 	public int counterDamage;
@@ -91,10 +92,11 @@ public class SequenceControls : MonoBehaviour {
 
 		hi5 = false; 
 
-		hp = 100;
+		maxHP = 100;
+		hp = maxHP;
 		counterDamage = 10;
-		attacking = true;
-		defending = false;
+//		attacking = true;
+//		defending = false;
 
 		turn = 0; 
 
@@ -231,7 +233,7 @@ public class SequenceControls : MonoBehaviour {
 	
 	public void generateNextMove(){
 		if (currentSeqTime >= seqDelay){
-			currentMove++; 
+			currentMove++;
 		}
 	}
 
@@ -322,7 +324,6 @@ public class SequenceControls : MonoBehaviour {
 	 	bool correctA = checkTouchA(contactA[currentMove]);
 	 	bool correctB = checkTouchB(contactB[currentMove]); 
 		if (correctA && correctB){
-			generateNextMove();
 	 		return true; 
 	 	}
 		return false; 
@@ -351,7 +352,7 @@ public class SequenceControls : MonoBehaviour {
 		}
 		// (1) touch detected from player A
 		touchDetectedA = true;
-
+		
 		// (2) check that hit within window
 //		if (currentSeqTime < seqWindow){
 			// (3) if right input, return true

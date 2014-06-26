@@ -12,7 +12,6 @@ public class GameControl : MonoBehaviour {
 	public int turn; 
 	public bool charging;
 	public bool playersTurn;
-	public bool turnOver;
 
 	public bool hi5; 				// begin and end a battle with a hi5
 	public bool seqGenerated; 		// true if a sequence has been generated but not completed 
@@ -24,9 +23,8 @@ public class GameControl : MonoBehaviour {
 	
 
 	void Start () {
-		playersTurn = true;
-		turnOver = false;
 		hi5 = true;
+		startPlayerTurn ();
 	}
 
 	void Update () {
@@ -76,8 +74,20 @@ public class GameControl : MonoBehaviour {
 			Debug.LogWarning ("Lose");
 //			Application.LoadLevel("Lose");
 		}
-		player.attacking = true; 
-		player.defending = false; 
+//		player.attacking = true; 
+//		player.defending = false; 
+	}
+
+	private void startPlayerTurn () {
+		playersTurn = true;
+		seqQueueLeft.movingSpritesDown = true;
+	}
+	
+	private void startEnemyTurn () {
+		playersTurn = false;
+		seqQueueLeft.movingSpritesDown = false;
+		//Hax
+		Invoke ("startPlayerTurn", 1.0f);
 	}
 
 	private void playerTurn(){
@@ -95,9 +105,22 @@ public class GameControl : MonoBehaviour {
 				seqQueueLeft.sequenceObjects[player.correctMoves].GetComponent<SpriteRenderer>().enabled = false;
 				seqQueueRight.sequenceObjects[player.correctMoves].GetComponent<SpriteRenderer>().enabled = false;
 				player.correctMoves++;
+				//player.generateNextMove();
+			
+				if (player.correctMoves < player.seqMoves) {
+					player.generateNextMove ();
+				}
+				else {
+					enemy.DamageEnemy (player.seqDamage);
+//					player.attacking = false;
+//					player.defending = true;
+					startEnemyTurn ();
+				}	
 			}
+
+			/** Yeah fuck all this  
 			player.seqMoves--; 
-			// check if sequence is finished 
+			// check if sequence is finished
 			if (player.seqMoves <= 0){
 				// check if all moves in sequence were correctly done  
 				if (player.correctMoves >= player.seqMoves){ 
@@ -106,15 +129,20 @@ public class GameControl : MonoBehaviour {
 				}
 				player.seqGenerated = false; // to generate a new sequence 
 				player.attacking = false;
-				player.defending = true; 
+				player.defending = true;
+				//playersTurn = false;
 			}
+			*/			
 		}
 	}
 
 	private void enemyTurn(){
-		enemy.generateAttack(); 
+		//enemy.generateAttack(); 
 		responseTime = 0;
-		playerResponse(); 
+		//playerResponse(); 
+		
+		//Uhhhh fuck it?
+		
 	}
 
 	private void playerResponse(){

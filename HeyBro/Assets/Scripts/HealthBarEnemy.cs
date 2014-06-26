@@ -14,8 +14,8 @@ public class HealthBarEnemy : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		float percHealth = enemy.hp / 100;	//Should technically be / maxHP but it's okay 
-		transform.localScale = new Vector3 (max_XScale * percHealth, yScale, 1);
+		float percHealth = (float) enemy.hp / (float) enemy.maxHP;	//Should technically be / maxHP but it's okay
+		transform.localScale = new Vector3 (max_XScale * percHealth, yScale, 1f);
 		
 	}
 }

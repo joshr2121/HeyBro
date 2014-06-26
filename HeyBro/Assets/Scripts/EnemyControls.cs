@@ -5,7 +5,8 @@ public class EnemyControls : MonoBehaviour {
 
 	public SequenceControls bros; 
 
-	public int hp = 100;
+	public int hp;
+	public int maxHP;
 	public int currentAttack; 
 	private enum attack { smack, siphoningGrasp, laserStrike };
 	public bool charging; 
@@ -17,7 +18,8 @@ public class EnemyControls : MonoBehaviour {
 	public float[][] attackParams = new float[3][] { new float[] { 25, 2, .02f, .01f }, new float[]{ 20, 2, .03f, .01f }, new float[] { 50, 3, .03f, .01f }};
 
 	void Start () {
-		hp = 100; 
+		maxHP = 400;
+		hp = maxHP;
 		charging = false; 
 		attacking = false; 
 	}

@@ -17,6 +17,8 @@ public class Sequence_Queue : MonoBehaviour {
 	public float yDistanceBetweenPictograms;
 	public float yTicksBetweenPositions;
 	
+	public bool movingSpritesDown;
+	
 	// Use this for initialization
 	void Start () {
 		sequenceSprites = new Sprite[3] {pictogramHighfive, pictogramFist, pictogramElbow};
@@ -39,6 +41,7 @@ public class Sequence_Queue : MonoBehaviour {
 	public void LoadSequence (int[] seq, float delay) {
 		for (int i = 0; i < seq.Length; i++) {
 			sequenceObjects[i].renderer.enabled = true;
+			sequenceObjects[i].transform.localPosition = new Vector3 (0, yDistanceBetweenPictograms*(i+1), 0);
 			sequenceObjects[i].GetComponent<SpriteRenderer>().sprite = sequenceSprites[seq[i]];
 		}
 		
@@ -51,7 +54,7 @@ public class Sequence_Queue : MonoBehaviour {
 	public void MoveSpriteDown(){
 		float yTranslation = yDistanceBetweenPictograms / yTicksBetweenPositions;
 		
-		if (player.attacking){
+		if (movingSpritesDown){
 			if (currentTime >= seqDelay){
 				foreach (GameObject o in sequenceObjects) {
 					o.gameObject.transform.position = new Vector3 (o.gameObject.transform.position.x, o.gameObject.transform.position.y - yTranslation, 

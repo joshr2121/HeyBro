@@ -726,7 +726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a7a2a9ba1ff05b4fb1370c3635f4a6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyControl: 0
+  keyControl: 1
   byteBuffer: 
   byteOffset: 0
   byteCount: 0
@@ -755,8 +755,7 @@ MonoBehaviour:
   correctMoves: 0
   currentSeqTime: 0
   hp: 100
-  attacking: 0
-  defending: 0
+  maxHP: 0
   counterDamage: 10
   turn: 0
   enemy: {fileID: 1918594872}
@@ -939,6 +938,7 @@ MonoBehaviour:
   currentTime: 0
   yDistanceBetweenPictograms: 0
   yTicksBetweenPositions: 0
+  movingSpritesDown: 0
 --- !u!1 &1456414801
 GameObject:
   m_ObjectHideFlags: 0
@@ -1234,6 +1234,7 @@ MonoBehaviour:
   currentTime: 0
   yDistanceBetweenPictograms: 0
   yTicksBetweenPositions: 0
+  movingSpritesDown: 0
 --- !u!1 &1801784207
 GameObject:
   m_ObjectHideFlags: 0
@@ -1450,6 +1451,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bros: {fileID: 608541069}
   hp: 0
+  maxHP: 0
   currentAttack: 0
   charging: 0
   attacking: 0
