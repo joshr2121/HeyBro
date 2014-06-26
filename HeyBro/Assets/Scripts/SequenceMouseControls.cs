@@ -45,12 +45,12 @@ public class SequenceMouseControls : MonoBehaviour {
 	public float currentSeqTime; 	// 
 	
 	// PLAYER STUFF
-	public int hp = 100; 			
+ 	public int hp;
 	public bool attacking;			
 	public bool defending; 
 	public enum reaction { block, counter, fail };
 
-	public int counterDamage = 10;
+	public int counterDamage;
 	public int turn;  
 
 	// ENEMY STUFF
@@ -62,7 +62,8 @@ public class SequenceMouseControls : MonoBehaviour {
 
 	void Start(){
 	
-
+		hp = 100;
+		counterDamage = 10;
 		touchDetectedA = false; 
 		touchDetectedB = false;
 
