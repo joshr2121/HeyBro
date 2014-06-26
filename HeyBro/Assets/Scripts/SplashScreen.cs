@@ -104,7 +104,8 @@ public class SplashScreen : MonoBehaviour {
 		}
 
 
-		if (in1 > 0 && in2 > 0 && currentTime >= readDelay){
+		if (currentTime >= readDelay){
+			sp.BaseStream.Flush ();
 				inputted1 = false; 
 				inputted2 = false; 
 				in1 = 0;
