@@ -9,9 +9,14 @@ public class SplashScreen : MonoBehaviour {
 	public byte[] byteBuffer; 
 	public int byteOffset;
 	public int byteCount;
-	public string s; 
-	public int byt; 
-	public char[] bytes; 
+
+	public int in1;
+	public int in2; 
+
+	public bool inputted1; 
+
+	public float readDelay;
+	public float currentTime; 
 
 	// TO CHECK THAT THE RIGHT CONTACT WAS MADE
 	private bool touchDetectedA;
@@ -24,6 +29,11 @@ public class SplashScreen : MonoBehaviour {
 		 // ARDUINO STUFF
 		sp.Open();				// open the port
 		sp.ReadTimeout = 1; 	// how often unity checks (throws exception if isn't open)
+
+		in1 = 0;
+		in2 = 0; 
+		readDelay = 5.0f;
+		inputted1 = false; 
 	}
 	
 	// Update is called once per frame
@@ -46,6 +56,10 @@ public class SplashScreen : MonoBehaviour {
 		}
 	}
 
+	void FixedUpdate(){
+		currentTime += Time.deltaTime; 
+	}
+
 	/* --------------------------------------------------------------------------------------------------------------------------
 	 * NO ARGS. NO RETURN.
 	 * (1) read inputs from arduino
@@ -56,21 +70,27 @@ public class SplashScreen : MonoBehaviour {
 	
 	 private void readFromArduino(){
 	 	// (1) read from arduino into an array
-	 	//sp.Read(byteBuffer, byteOffset, byteCount);
-		s = sp.ReadLine ();
-		//sp.Read (bytes, byteOffset, byteCount); 
-		//byt = int.Parse (sp.ReadLine ()); 
+//	 	sp.Read(byteBuffer, byteOffset, byteCount);
 
-		//print (byt); 
+		if (!inputted1) {
+			in1 = int.Parse (sp.ReadLine ()); 
+			inputted1 = true; 
+		}
 
-		print ("string " + s); 
-		//print ("char array " + bytes); 
-		//print (byt); 
-		
+		if (inputted1) {
+			int current = int.Parse (sp.ReadLine()); 
+			if (currentTime >= readDelay){
+				inputted1 = false; 
+			}
+			else if (current != in1){
+				in2 = current; 
+			}
+		}
+		print ("in1 = " + in1 + ", in2 = " + in2); 
+	
 
-	 	for (int i = 0; i < byteBuffer.Length; i++){
-	 		print (byteBuffer[i]);
-	 	}
+
+		/*
 
 	 	// (2) check if current byte 
 	 	if (byteBuffer[0] < 4){
@@ -99,5 +119,6 @@ public class SplashScreen : MonoBehaviour {
 	 		detectedA = byteBuffer[i];
 	 		touchDetectedA = true; 
 	 	}
+	 	*/
 	 }
 }
