@@ -3,7 +3,8 @@ using System.Collections;
 
 public class GameControl : MonoBehaviour {
 
-	public SequenceControls player;	// player script
+	//public SequenceControls player;	// player script
+	public SequenceMouseControls player; 
 	public EnemyControls enemy; 	// enemy script 
 
 	public int turn; 
@@ -55,7 +56,8 @@ public class GameControl : MonoBehaviour {
 			enemyTurn(); 
 		}
 
-		else if (player.detectedA == 1 && player.detectedB == 4){
+		//else if (player.detectedA == 1 && player.detectedB == 4){
+		else if (player.palmA && player.palmB){
 			hi5 = true; 
 		}	
 

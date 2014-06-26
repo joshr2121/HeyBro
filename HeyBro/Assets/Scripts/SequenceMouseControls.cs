@@ -4,29 +4,21 @@ using System.IO.Ports;
 
 public class SequenceMouseControls : MonoBehaviour {
 
-	// ARDUINO STUFF ("PORT" is not right)
-	SerialPort sp = new SerialPort("PORT", 9600);
-	public byte[] byteBuffer; 
-	public int byteOffset;
-	public int byteCount; 
-
 	// CONTACT INPUTS (person A and person B)
-	private bool palmA 	= Input.GetKeyDown("Alpha1"); 		// these will correspond to specific button inputs 
-	private bool fistA 	= Input.GetKeyDown("Alpha2");
-	private bool elbowA	= Input.GetKeyDown("Alpha3");
+	public bool palmA 	= Input.GetKeyDown("Alpha1"); 		// these will correspond to specific button inputs 
+	public bool fistA 	= Input.GetKeyDown("Alpha2");
+	public bool elbowA	= Input.GetKeyDown("Alpha3");
 
-	private bool palmB	= Input.GetKeyDown("Alpha8"); 
-	private bool fistB	= Input.GetKeyDown("Alpha9");
-	private bool elbowB	= Input.GetKeyDown("Alpha0");
+	public bool palmB	= Input.GetKeyDown("Alpha8"); 
+	public bool fistB	= Input.GetKeyDown("Alpha9");
+	public bool elbowB	= Input.GetKeyDown("Alpha0");
 	
 	// TO CREATE THE EVENTS THAT WILL BE CHECKED
-	private enum touch { palm, fist, elbow }; 
+	public enum touch { palm, fist, elbow }; 
 	public int[] contactA;
 	public int[] contactB; 
-	public int detectedA;
-	public int detectedB; 
-	private int minEnum = 0; 	// first index of the enum
-	private int maxEnum = 3;	// number of elements in the enum
+	public int minEnum = 0; 	// first index of the enum
+	public int maxEnum = 3;	// number of elements in the enum
 
 	public int minMovesPerSeq = 3;		// min number of moves within sequence of moves of certain speed
 	public int maxMovesPerSeq = 5; 		// max number of moves within seq of moves of certain speed
@@ -34,38 +26,42 @@ public class SequenceMouseControls : MonoBehaviour {
 	public float maxSeqDelay = 1.3f; 	// max delay between moves in seq of certain speed
 
 	// TO CHECK THAT THE RIGHT CONTACT WAS MADE
-	private bool touchDetectedA;
-	private bool touchDetectedB; 
+	public bool touchDetectedA;
+	public bool touchDetectedB; 
 
-	private bool hi5; 				// begin and end a battle with a hi5
-	private bool seqGenerated; 		// true if a sequence has been generated but not completed 
+	public bool hi5; 				// begin and end a battle with a hi5
+	public bool seqGenerated; 		// true if a sequence has been generated but not completed 
 
 	// TO KEEP TRACK OF CURRENT MOVE
-	private enum sequence { three, fourA, fourB, fiveA, fiveB, six }; 
-	private int currentSeq; 		// will take one of the enum values/indeces
-	private int seqMoves;			// which sequence type within the sequence enum
-	private int seqDamage; 			// damage to deal if succeed sequence
-	private float seqDelay; 		// delay between moves in current sequence
-	private float seqWindow; 		// response window for current seq
+	public enum sequence { three, fourA, fourB, fiveA, fiveB, six }; 
+	public int currentSeq; 		// will take one of the enum values/indeces
+	public int seqMoves;			// which sequence type within the sequence enum
+	public int seqDamage; 			// damage to deal if succeed sequence
+	public float seqDelay; 		// delay between moves in current sequence
+	public float seqWindow; 		// response window for current seq
 
-	private int currentMove; 		// the move we're at in the current sequence, used as index for contactA/contactB arrays to get the move we want 
-	private int correctMoves; 
-	private float currentSeqTime; 	// 
+	public int currentMove; 		// the move we're at in the current sequence, used as index for contactA/contactB arrays to get the move we want 
+	public int correctMoves; 
+	public float currentSeqTime; 	// 
 	
 	// PLAYER STUFF
-	private int hp = 100; 
+	public int hp = 100; 			
+	public bool attacking;			
+	public bool defending; 
+	public enum reaction { block, counter, fail };
 
+	public int counterDamage = 10;
+	public int turn;  
 
+	// ENEMY STUFF
+	public EnemyControls enemy;  
 
 	// 0: num moves per sequence, 1: dmg, 2: delay, 3: window
-	private float[][] sequences = 	new float[4][] { new float[] { 3, 40, .9f, .175f }, new float[]{ 4, 75, .8f, .150f }, 
+	public float[][] sequences = 	new float[4][] { new float[] { 3, 40, .9f, .175f }, new float[]{ 4, 75, .8f, .150f }, 
 													 new float[] { 5, 100, .75f, .150f }, new float[] { 6, 150, .7f, .125f }};	
 
 	void Start(){
 	
-		// ARDUINO STUFF
-		sp.Open();				// open the port
-		sp.ReadTimeout = 1; 	// how often unity checks (throws exception if isn't open)
 
 		touchDetectedA = false; 
 		touchDetectedB = false;
@@ -81,8 +77,6 @@ public class SequenceMouseControls : MonoBehaviour {
 
 	void FixedUpdate(){
 		currentSeqTime += Time.deltaTime; 
-
-		battleProceed(); 
 	}
 
 	 /* --------------------------------------------------------------------------------------------------------------------------
@@ -90,7 +84,7 @@ public class SequenceMouseControls : MonoBehaviour {
 	 * (1) check if started battle i.e. IF HIGH FIVED
 	 * (2) if so, check if a sequence has already been generated 
 	 * -------------------------------------------------------------------------------------------------------------------------- */
-	private void battleProceed(){
+	/*public void battleProceed(){
 		if (hi5) { 
 			if (!seqGenerated){
 				generateSeqParams(); 
@@ -116,7 +110,7 @@ public class SequenceMouseControls : MonoBehaviour {
 		else if (detectedA == 1 && detectedB == 4){
 			hi5 = true; 
 		}
-	}
+	}*/
 
 	/* --------------------------------------------------------------------------------------------------------------------------
 	 * NO ARGS. NO RETURN.
@@ -124,7 +118,7 @@ public class SequenceMouseControls : MonoBehaviour {
 	 * (2) generate the delay between moves 
 	 * -------------------------------------------------------------------------------------------------------------------------- */
 	
-	 private void generateSeqParams(){
+	 public void generateSeqParams(){
 	 	currentSeq = Random.Range(0, 6); 
 	 	switch (currentSeq){
 	 		case (int) sequence.three:
@@ -181,7 +175,7 @@ public class SequenceMouseControls : MonoBehaviour {
 	 * (3) generate a random command for each move in the array
 	 * -------------------------------------------------------------------------------------------------------------------------- */
 	
-	private void generateSequence(int seq){
+	public void generateSequence(int seq){
 		currentMove = 0; 
 		correctMoves = 0; 
 		contactA = new int[seqMoves];
@@ -201,7 +195,7 @@ public class SequenceMouseControls : MonoBehaviour {
 	 * - false otherwise 
 	 * -------------------------------------------------------------------------------------------------------------------------- */
 
-	 private bool checkBothEvents(){
+	 public bool checkBothEvents(){
 	 	bool correctA = checkTouchA(contactA[currentMove]);
 	 	bool correctB = checkTouchB(contactB[currentMove]); 
 
@@ -219,11 +213,7 @@ public class SequenceMouseControls : MonoBehaviour {
 	 * (4) Otherwise return false
 	 * -------------------------------------------------------------------------------------------------------------------------- */
 
-	private bool checkTouchA(int touchA){
-
-		palmA 	= (detectedA == 1);
-		fistA 	= (detectedA == 2);
-		elbowA 	= (detectedA == 3);
+	public bool checkTouchA(int touchA){
 
 		// (1) touch detected from player A
 		touchDetectedA = true;
@@ -267,11 +257,7 @@ public class SequenceMouseControls : MonoBehaviour {
 	 * (4) Otherwise return false
 	 * -------------------------------------------------------------------------------------------------------------------------- */
 
-	private bool checkTouchB(int touchB){
-
-		palmB 	= (detectedB == 4);
-		fistB 	= (detectedB == 5);
-		elbowB 	= (detectedB == 6);
+	public bool checkTouchB(int touchB){
 
 		// (1) touch detected from player B
 		touchDetectedB = true; ; 
@@ -305,6 +291,25 @@ public class SequenceMouseControls : MonoBehaviour {
 		}
 		// (3) if haven't returned true = wrong input (CHECK ANY KEY?)
 		return false; 
+	}
+
+	public int enemyResponse(){
+
+		if (fistA && fistB){
+			return (int) reaction.block; 
+		}
+
+		else if (elbowA && elbowB){
+			return (int) reaction.counter; 
+		}
+
+		 else {
+		 	return (int) reaction.fail; 
+		 }
+	}
+
+	public void DamagePlayers(int damage){
+		hp -= damage; 
 	}
 
 }
