@@ -74,13 +74,13 @@ public class SequenceControls : MonoBehaviour {
 	void Start(){
 
 		if (keyControl){
-			palmA 	= Input.GetKeyDown("Alpha1"); 		// these will correspond to specific button inputs 
-			fistA 	= Input.GetKeyDown("Alpha2");
-			elbowA	= Input.GetKeyDown("Alpha3");
+			palmA 	= Input.GetKeyDown(KeyCode.Alpha1); 		// these will correspond to specific button inputs 
+			fistA 	= Input.GetKeyDown(KeyCode.Alpha2);
+			elbowA	= Input.GetKeyDown(KeyCode.Alpha3);
 
-			palmB	= Input.GetKeyDown("Alpha8"); 
-			fistB	= Input.GetKeyDown("Alpha9");
-			elbowB	= Input.GetKeyDown("Alpha0");
+			palmB	= Input.GetKeyDown(KeyCode.Alpha8); 
+			fistB	= Input.GetKeyDown(KeyCode.Alpha9);
+			elbowB	= Input.GetKeyDown(KeyCode.Alpha0);
 		}
 
 		else {
