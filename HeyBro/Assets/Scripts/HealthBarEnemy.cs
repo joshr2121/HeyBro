@@ -13,7 +13,7 @@ public class HealthBarEnemy : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		enemy = GameObject.Find ("Enemy").GetComponent<EnemyControls>();
-		curPerc = 1f;
+		curPerc = 0.1f;
 		targetPerc = 1f;
 	}
 	
@@ -34,10 +34,8 @@ public class HealthBarEnemy : MonoBehaviour {
 			}
 			else {
 				curPerc = Mathf.Lerp (curPerc, targetPerc, 0.1f);
-			}
-			
+			}			
 			transform.localScale = new Vector3 (max_XScale * curPerc, yScale, 1f);
-		}
-		
+		}		
 	}
 }

@@ -226,7 +226,7 @@ SpriteRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 224507140}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_LightmapIndex: 255
@@ -255,7 +255,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   max_XScale: 3
   yScale: .5
-  players: {fileID: 608541069}
+  player: {fileID: 0}
+  curPerc: 0
+  targetPerc: 0
 --- !u!1 &355821579
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,6 +761,8 @@ MonoBehaviour:
   currentSeqTime: 0
   hp: 100
   maxHP: 0
+  defending: 0
+  blocked: 0
   counterDamage: 10
   turn: 0
   enemy: {fileID: 1918594872}

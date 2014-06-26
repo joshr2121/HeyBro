@@ -56,8 +56,9 @@ public class SequenceControls : MonoBehaviour {
 	// PLAYER STUFF
 	public int hp;
 	public int maxHP;		
-//	public bool attacking;			
-//	public bool defending; 
+//	public bool attacking;
+	public bool defending; 
+	public bool blocked; //lol
 	public enum reaction { block, counter, fail };
 
 	public int counterDamage;
@@ -100,7 +101,6 @@ public class SequenceControls : MonoBehaviour {
 //		defending = false;
 
 		turn = 0; 
-
 	}
 
 	void Update(){
@@ -300,6 +300,7 @@ public class SequenceControls : MonoBehaviour {
 	 * -------------------------------------------------------------------------------------------------------------------------- */
 	
 	public void generateSequence(int seq){
+		defending = false;
 		currentMove = 0; 
 		correctMoves = 0; 
 		contactA = new int[seqMoves];
@@ -310,6 +311,16 @@ public class SequenceControls : MonoBehaviour {
 			contactA[i] = Random.Range(minEnum, maxEnum); 
 			contactB[i] = Random.Range(minEnum, maxEnum); 
 		}
+	}
+	
+	public void generateBlockSequence () {
+		defending = true;
+		blocked = false;
+		currentMove = 0;
+		correctMoves = 0;
+		contactA = new int[1] { 1 };
+		contactB = new int[1] { 1 };
+		seqDelay = 0.8f;
 	}
 
 	/* --------------------------------------------------------------------------------------------------------------------------
@@ -323,6 +334,11 @@ public class SequenceControls : MonoBehaviour {
 	 	bool correctA = checkTouchA(contactA[currentMove]);
 	 	bool correctB = checkTouchB(contactB[currentMove]); 
 		if (correctA && correctB){
+			
+			//Hax
+			if (defending) {
+				blocked = true;
+			}
 	 		return true; 
 	 	}
 		return false; 

@@ -96,10 +96,17 @@ public class GameControl : MonoBehaviour {
 	
 	private void startEnemyTurn () {
 		playersTurn = false;
-		seqQueueLeft.movingSpritesDown = false;
-		//Hax
-		Invoke ("startPlayerTurn", 1.0f);
-		
+		Invoke ("createBlockSequence", 2.0f);
+		//seqQueueLeft.movingSpritesDown = false;
+		//seqQueueRight.movingSpritesDown = false;
+	}
+	
+	private void createBlockSequence () {
+		player.generateBlockSequence ();
+		seqQueueLeft.LoadSequence (player.contactA, player.seqDelay);
+		seqQueueRight.LoadSequence (player.contactB, player.seqDelay);
+		//Hax!
+		Invoke ("startPlayerTurn", 5.0f);
 	}
 
 	private void playerTurn(){
