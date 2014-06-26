@@ -109,9 +109,14 @@ public class SequenceControls : MonoBehaviour {
 
 	void FixedUpdate(){
 		currentSeqTime += Time.deltaTime; 
-
-		if (!keyControl){
-			readFromArduino(); 
+	
+		if (sp.IsOpen){
+			try{
+				if (!keyControl){
+					readFromArduino(); 
+				}
+			}
+			catch (System.Exception) {}
 		}
 		/**
 		else {
