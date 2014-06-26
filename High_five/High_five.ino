@@ -1,27 +1,23 @@
 //  *****************************************************************************************************************
 //  *                                                                                                               *
-//  *                                         SpikenzieLabs.com                                                     *
+//  *                                         Nick Kornek & SpikenzieLabs.com                                                     *
 //  *                                                                                                               *
-//  *                                           Drum Kit - Kit                                                      *
+//  *                                           High-5000 (Based on Drum Kit - Kit)                                                      *
 //  *                                                                                                               *
 //  *                                                                                                               *
 //  *****************************************************************************************************************
 //
-//  BY: MARK DEMERS Copywrite 20009
+//  ORIGINAL CODE BY: MARK DEMERS Copywrite 20009
 //  April. 2009
 //  VERSION: 1.b
 //
+//  MODIFIED BY: NICK KORNEK 2014
+//
 //  DESCRIPTION:
-//  Arduino analog input used to sense piezo drum hits then sent serialy to processing.
+//  Arduino analog input for use with High-5000 controller
 //  
-//  Required - Hardware:
-//  1. Drum kit - kit (From SpikenzieLabs.com)
-//  2. Arduino
 //
-//  Required - Software:
-//  1. Serial MIDI converter
-//  2. Garage Band, Ableton Live etc ...
-//
+//  
 // LEGAL:
 // This code is provided as is. No guaranties or warranties are given in any form. It is your responsibilty to 
 // determine this codes suitability for your application.
@@ -35,7 +31,7 @@
 
 unsigned char PadNote[6] = {52,16,66,63,40,65};         // MIDI notes from 0 to 127 (Mid C = 60)
 
-int PadCutOff[6] = {800,800,800,800,800,800};           // Minimum Analog value to cause a drum hit
+int PadCutOff[6] = {300,700,700,700,700,700};           // Minimum Analog value to cause a drum hit
 
 int MaxPlayTime[6] = {90,90,90,90,90,90};               // Cycles before a 2nd hit is allowed
 
