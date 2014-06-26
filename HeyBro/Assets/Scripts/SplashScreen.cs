@@ -78,6 +78,8 @@ public class SplashScreen : MonoBehaviour {
 
 		current = int.Parse (sp.ReadLine()); 
 
+		print ("current = " + current); 
+
 		if (!inputted1 && !inputted2) {
 			if (current > 0 && current <= 2){
 				in1 = current; 
@@ -104,7 +106,9 @@ public class SplashScreen : MonoBehaviour {
 		}
 
 
-		if (currentTime >= readDelay){
+		if (currentTime > readDelay){
+			print ("ENTERED CURRENT TIME > DELAY");
+			current = 0; 
 			sp.BaseStream.Flush ();
 				inputted1 = false; 
 				inputted2 = false; 

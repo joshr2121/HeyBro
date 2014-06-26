@@ -77,6 +77,7 @@ void loop()
     if((hitavg > PadCutOff[pin]))
     {
       Serial.println(pin+1);
+      Serial.flush();
     }
   } 
 }
