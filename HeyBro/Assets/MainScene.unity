@@ -733,7 +733,30 @@ MonoBehaviour:
   contactB: 
   detectedA: 0
   detectedB: 0
+  minEnum: 0
+  maxEnum: 3
+  palmA: 0
+  fistA: 0
+  elbowA: 0
+  palmB: 0
+  fistB: 0
+  elbowB: 0
+  touchDetectedA: 0
+  touchDetectedB: 0
+  hi5: 0
+  seqGenerated: 0
+  currentSeq: 0
+  seqMoves: 0
+  seqDamage: 0
+  seqDelay: 0
+  seqWindow: 0
+  currentMove: 0
+  correctMoves: 0
+  currentSeqTime: 0
   hp: 100
+  attacking: 0
+  defending: 0
+  counterDamage: 10
   turn: 0
   enemy: {fileID: 0}
 --- !u!1 &642855664
@@ -1349,7 +1372,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   enemy: {fileID: 0}
+  turn: 0
+  charging: 0
   hi5: 0
+  seqGenerated: 0
 --- !u!4 &2061117480
 Transform:
   m_ObjectHideFlags: 0
