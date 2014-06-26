@@ -6,6 +6,9 @@ using System.IO.Ports;
 
 public class SequenceControls : MonoBehaviour {
 
+	// TRUE IF USING KEYBOARD, FALSE IF ARDUINO
+	public bool keyControl; 
+
 	// ARDUINO STUFF ("PORT" is not right)
 	SerialPort sp = new SerialPort("COM3", 9600);
 	public byte[] byteBuffer; 
@@ -69,10 +72,22 @@ public class SequenceControls : MonoBehaviour {
 													 new float[] { 5, 100, .75f, .150f }, new float[] { 6, 150, .7f, .125f }};	
 
 	void Start(){
-	
-		// ARDUINO STUFF
-		sp.Open();				// open the port
-		sp.ReadTimeout = 1; 	// how often unity checks (throws exception if isn't open)
+
+		if (keyControl){
+			palmA 	= Input.GetKeyDown("Alpha1"); 		// these will correspond to specific button inputs 
+			fistA 	= Input.GetKeyDown("Alpha2");
+			elbowA	= Input.GetKeyDown("Alpha3");
+
+			palmB	= Input.GetKeyDown("Alpha8"); 
+			fistB	= Input.GetKeyDown("Alpha9");
+			elbowB	= Input.GetKeyDown("Alpha0");
+		}
+
+		else {
+			// ARDUINO STUFF
+			sp.Open();				// open the port
+			sp.ReadTimeout = 1; 	// how often unity checks (throws exception if isn't open)
+		}
 
 		touchDetectedA = false; 
 		touchDetectedB = false;
@@ -95,7 +110,9 @@ public class SequenceControls : MonoBehaviour {
 	void FixedUpdate(){
 		currentSeqTime += Time.deltaTime; 
 
-		readFromArduino(); 
+		if (!keyControl){
+			readFromArduino(); 
+		}
 	}
 
 	/* --------------------------------------------------------------------------------------------------------------------------
@@ -313,9 +330,11 @@ public class SequenceControls : MonoBehaviour {
 
 	public bool checkTouchA(int touchA){
 
-		palmA 	= (detectedA == 1);
-		fistA 	= (detectedA == 2);
-		elbowA 	= (detectedA == 3);
+		if(!keyControl){
+			palmA 	= (detectedA == 1);
+			fistA 	= (detectedA == 2);
+			elbowA 	= (detectedA == 3);
+		}
 
 		// (1) touch detected from player A
 		touchDetectedA = true;
@@ -361,9 +380,11 @@ public class SequenceControls : MonoBehaviour {
 
 	public bool checkTouchB(int touchB){
 
-		palmB 	= (detectedB == 4);
-		fistB 	= (detectedB == 5);
-		elbowB 	= (detectedB == 6);
+		if(!keyControl){
+			palmB 	= (detectedB == 4);
+			fistB 	= (detectedB == 5);
+			elbowB 	= (detectedB == 6);
+		}
 
 		// (1) touch detected from player B
 		touchDetectedB = true; ; 
@@ -401,11 +422,13 @@ public class SequenceControls : MonoBehaviour {
 
 	public int enemyResponse(){
 
-		elbowA 	= (detectedA == 3);
-		elbowB 	= (detectedB == 6);
+		if(!keyControl){
+			elbowA 	= (detectedA == 3);
+			elbowB 	= (detectedB == 6);
 
-		fistA 	= (detectedB == 2);
-		fistB 	= (detectedB == 5);
+			fistA 	= (detectedB == 2);
+			fistB 	= (detectedB == 5);
+		}
 
 		if (fistA && fistB){
 			return (int) reaction.block; 
