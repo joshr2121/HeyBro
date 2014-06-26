@@ -138,7 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   max_XScale: 5
   yScale: 2
-  enemy: {fileID: 0}
+  enemy: {fileID: 1918594872}
 --- !u!1 &131105133
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,7 +253,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   max_XScale: 3
   yScale: 2
-  players: {fileID: 0}
+  players: {fileID: 608541069}
 --- !u!1 &355821579
 GameObject:
   m_ObjectHideFlags: 0
@@ -694,7 +694,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 608541068}
   - 114: {fileID: 608541069}
-  - 114: {fileID: 608541070}
   m_Layer: 0
   m_Name: Players
   m_TagString: Untagged
@@ -727,6 +726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a7a2a9ba1ff05b4fb1370c3635f4a6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keyControl: 0
   byteBuffer: 
   byteOffset: 0
   byteCount: 0
@@ -759,50 +759,7 @@ MonoBehaviour:
   defending: 0
   counterDamage: 10
   turn: 0
-  enemy: {fileID: 0}
---- !u!114 &608541070
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 608541067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d44161532eb79f74886b01cb7c154cc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  palmA: 0
-  fistA: 0
-  elbowA: 0
-  palmB: 0
-  fistB: 0
-  elbowB: 0
-  contactA: 
-  contactB: 
-  minEnum: 0
-  maxEnum: 0
-  minMovesPerSeq: 0
-  maxMovesPerSeq: 0
-  minSeqDelay: 0
-  maxSeqDelay: 0
-  touchDetectedA: 0
-  touchDetectedB: 0
-  hi5: 0
-  seqGenerated: 0
-  currentSeq: 0
-  seqMoves: 0
-  seqDamage: 0
-  seqDelay: 0
-  seqWindow: 0
-  currentMove: 0
-  correctMoves: 0
-  currentSeqTime: 0
-  hp: 0
-  attacking: 0
-  defending: 0
-  counterDamage: 0
-  turn: 0
-  enemy: {fileID: 0}
+  enemy: {fileID: 1918594872}
 --- !u!1 &642855664
 GameObject:
   m_ObjectHideFlags: 0
@@ -812,6 +769,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 642855665}
   - 212: {fileID: 642855666}
+  - 114: {fileID: 642855667}
   m_Layer: 0
   m_Name: Player_Left
   m_TagString: Untagged
@@ -853,6 +811,23 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c027bceda9ccd5f48a18f6ee5eb3a2aa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &642855667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 642855664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55da4b995c572074f89aaa74a86fdf27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack: {fileID: 21300000, guid: 47b1e7ad939915042874ccdc743ae767, type: 3}
+  elbow: {fileID: 21300000, guid: db2605b21814b8e46a9fc31befcacbb6, type: 3}
+  handsUp: {fileID: 21300000, guid: c027bceda9ccd5f48a18f6ee5eb3a2aa, type: 3}
+  highfive: {fileID: 21300000, guid: c8362d81ffc377b4d89b9d1c20ed32e3, type: 3}
+  punch: {fileID: 21300000, guid: 617c5c062663f504eb45d02a14152b42, type: 3}
+  sad: {fileID: 21300000, guid: c683995eaa68c9a42a4cca4197a9755d, type: 3}
 --- !u!1 &843233044
 GameObject:
   m_ObjectHideFlags: 0
@@ -1376,7 +1351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f24a6464cd1591409b67a934a51cf99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bros: {fileID: 0}
+  bros: {fileID: 608541069}
   hp: 0
   currentAttack: 0
   charging: 0
@@ -1424,7 +1399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f641b9f6925eab046989df52b6e1106d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 608541070}
+  player: {fileID: 608541069}
   enemy: {fileID: 1918594872}
   turn: 0
   charging: 0
@@ -1502,6 +1477,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 2139840337}
   - 212: {fileID: 2139840338}
+  - 114: {fileID: 2139840339}
   m_Layer: 0
   m_Name: Player_Right
   m_TagString: Untagged
@@ -1543,3 +1519,20 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: e1650dec4646f9a4d934f2acd68035ac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &2139840339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2139840336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55da4b995c572074f89aaa74a86fdf27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack: {fileID: 21300000, guid: 78eec64b9a460ad40bb124b0c6b38e2a, type: 3}
+  elbow: {fileID: 21300000, guid: 7cc55fa6ddf8d284e82ee141847ce229, type: 3}
+  handsUp: {fileID: 21300000, guid: e1650dec4646f9a4d934f2acd68035ac, type: 3}
+  highfive: {fileID: 21300000, guid: e375f61389182584cbf6d6ff57c56fc8, type: 3}
+  punch: {fileID: 21300000, guid: 372d7cfa7d67577499c3c812c85c8db1, type: 3}
+  sad: {fileID: 21300000, guid: 74cd27fbecff5914da5da7b92b276419, type: 3}

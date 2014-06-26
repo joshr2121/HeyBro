@@ -4,7 +4,7 @@ using System.Collections;
 public class GameControl : MonoBehaviour {
 
 	//public SequenceControls player;	// player script
-	public SequenceMouseControls player; 
+	public SequenceControls player; 
 	public EnemyControls enemy; 	// enemy script 
 
 	public int turn; 
