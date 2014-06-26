@@ -135,6 +135,13 @@ public class SequenceControls : MonoBehaviour {
 	 * -------------------------------------------------------------------------------------------------------------------------- */
 	
 	public void readFromArduino(){
+	
+		if (detectedA != 0 && detectedB != 0){
+			current = 0; 
+			touchDetectedA = false; 
+			touchDetectedB = false; 
+		}
+		
 		// (1) read from arduino into an array
 		current = int.Parse (sp.ReadLine()); 
 		

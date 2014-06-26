@@ -26,6 +26,7 @@ public class GameControl : MonoBehaviour {
 	public AudioClip clipWholeSeqSuccess;
 	
 	public AudioSource srcRobot;
+	public AudioSource srcPlayersDie;
 
 	void Start () {
 		hi5 = true;
@@ -111,8 +112,15 @@ public class GameControl : MonoBehaviour {
 		
 	private void checkBlocked () {
 		if (!player.blocked) {
+			player.hp -= 20;
 		}
-		Invoke ("startPlayerTurn", 5.0f);
+		if (player.hp <= 0) {
+			srcPlayersDie.Play ();
+			Invoke ("loadSplashScreen", 5.0f);			
+		}
+		else {
+			Invoke ("startPlayerTurn", 5.0f);
+		}
 	}
 
 	private void playerTurn(){
@@ -187,7 +195,19 @@ public class GameControl : MonoBehaviour {
 		responseTime = 0;
 		//playerResponse(); 
 		
-		//Uhhhh fuck it?
+		if (player.checkBothEvents() && pictogramsInRange()) {
+			player.blocked = true;
+			seqQueueLeft.sequenceObjects[0].GetComponent<SpriteRenderer>().enabled = false;
+			seqQueueRight.sequenceObjects[0].GetComponent<SpriteRenderer>().enabled = false;
+		}
+		
+		if (pictogramsTooLow ()) {
+			for (int i = 0; i < 6; i++) {
+				seqQueueLeft.sequenceObjects[i].GetComponent<SpriteRenderer>().enabled = false;
+				seqQueueRight.sequenceObjects[i].GetComponent<SpriteRenderer>().enabled = false;
+			}
+			
+		}
 		
 	}
 
