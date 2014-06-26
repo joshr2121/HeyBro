@@ -8,6 +8,7 @@ public class GameControl : MonoBehaviour {
 	public EnemyControls enemy; 	// enemy script
 	public Sequence_Queue seqQueueLeft;
 	public Sequence_Queue seqQueueRight;
+	public float seqObjectCloseEnoughDistance;
 
 	public int turn; 
 	public bool charging;
@@ -25,6 +26,7 @@ public class GameControl : MonoBehaviour {
 	void Start () {
 		hi5 = true;
 		startPlayerTurn ();
+		seqObjectCloseEnoughDistance = 0.4f;
 	}
 
 	void Update () {
@@ -81,6 +83,8 @@ public class GameControl : MonoBehaviour {
 	private void startPlayerTurn () {
 		playersTurn = true;
 		seqQueueLeft.movingSpritesDown = true;
+		seqQueueRight.movingSpritesDown = true;
+		seqGenerated = false;
 	}
 	
 	private void startEnemyTurn () {
@@ -101,7 +105,14 @@ public class GameControl : MonoBehaviour {
 			turn++;
 		}
 		else {
-			if (player.checkBothEvents()){
+			if (pictogramsTooLow ()) {
+				for (int i = 0; i < 6; i++) {
+					seqQueueLeft.sequenceObjects[i].GetComponent<SpriteRenderer>().enabled = false;
+					seqQueueRight.sequenceObjects[i].GetComponent<SpriteRenderer>().enabled = false;
+				}	
+				startEnemyTurn ();
+			}
+			else if (player.checkBothEvents() && pictogramsInRange()){
 				seqQueueLeft.sequenceObjects[player.correctMoves].GetComponent<SpriteRenderer>().enabled = false;
 				seqQueueRight.sequenceObjects[player.correctMoves].GetComponent<SpriteRenderer>().enabled = false;
 				player.correctMoves++;
@@ -170,6 +181,14 @@ public class GameControl : MonoBehaviour {
 				break; 
 		}
 	}
-
+	
+	private bool pictogramsInRange () {
+		//Just check left, they're the same
+		return (Mathf.Abs (seqQueueLeft.sequenceObjects[player.currentMove].transform.localPosition.y) <= seqObjectCloseEnoughDistance);
+	}
+	
+	private bool pictogramsTooLow () {
+		return ((seqQueueLeft.sequenceObjects[player.currentMove].transform.localPosition.y) < -1*seqObjectCloseEnoughDistance);
+	}
 
 }

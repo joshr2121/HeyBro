@@ -15,7 +15,7 @@ public class Sequence_Queue : MonoBehaviour {
 	public float seqDelay;
 	public float currentTime;
 	public float yDistanceBetweenPictograms;
-	public float yTicksBetweenPositions;
+	public int yTicksBetweenPositions;
 	
 	public bool movingSpritesDown;
 	
@@ -23,7 +23,7 @@ public class Sequence_Queue : MonoBehaviour {
 	void Start () {
 		sequenceSprites = new Sprite[3] {pictogramHighfive, pictogramFist, pictogramElbow};
 		yDistanceBetweenPictograms = 0.8f;
-		yTicksBetweenPositions = 2f;
+		yTicksBetweenPositions = 4;
 	}
 	
 	// Update is called once per frame
@@ -34,11 +34,11 @@ public class Sequence_Queue : MonoBehaviour {
 	void FixedUpdate () {
 		currentTime += Time.deltaTime;
 		MoveSpriteDown();
-		
 	}
 	
 	// Sets the appropriate pictogram sprites and visibility
 	public void LoadSequence (int[] seq, float delay) {
+		currentTime = 0f;
 		for (int i = 0; i < seq.Length; i++) {
 			sequenceObjects[i].renderer.enabled = true;
 			sequenceObjects[i].transform.localPosition = new Vector3 (0, yDistanceBetweenPictograms*(i+1), 0);
@@ -49,10 +49,10 @@ public class Sequence_Queue : MonoBehaviour {
 			sequenceObjects[i].renderer.enabled = false;
 		}
 		//Multiplying delay for easier debugging
-		seqDelay = 10*delay / yTicksBetweenPositions;
+		seqDelay = 2*delay / yTicksBetweenPositions;
 	}
 	public void MoveSpriteDown(){
-		float yTranslation = yDistanceBetweenPictograms / yTicksBetweenPositions;
+		float yTranslation = yDistanceBetweenPictograms / (float) yTicksBetweenPositions;
 		
 		if (movingSpritesDown){
 			if (currentTime >= seqDelay){
