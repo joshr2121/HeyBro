@@ -151,7 +151,7 @@ public class SequenceControls : MonoBehaviour {
 	 *		(4i)	if did all moves in sequence right, deal damage
 	 * 		(4ii)	finished the sequence, so prepare to receive attack 
 	 * -------------------------------------------------------------------------------------------------------------------------- */
-	public void battleProceed(){
+	/*public void battleProceed(){
 		if (hi5) { 
 			if (attacking){
 				if (!seqGenerated){
@@ -196,7 +196,7 @@ public class SequenceControls : MonoBehaviour {
 		else if (detectedA == 1 && detectedB == 4){
 			hi5 = true; 
 		}
-	}
+	}*/
 
 	/* --------------------------------------------------------------------------------------------------------------------------
 	 * NO ARGS. NO RETURN.
