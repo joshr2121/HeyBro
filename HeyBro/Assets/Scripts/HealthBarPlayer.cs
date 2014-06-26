@@ -15,6 +15,7 @@ public class HealthBarPlayer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		float percHealth = players.hp / 100;	//Should technically be / maxHP but it's okay 
+		Debug.Log (percHealth);
 		transform.localScale = new Vector3 (max_XScale * percHealth, yScale, 1);
 		
 	}

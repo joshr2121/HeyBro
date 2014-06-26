@@ -57,7 +57,6 @@ public class Sequence_Queue : MonoBehaviour {
 					o.gameObject.transform.position = new Vector3 (o.gameObject.transform.position.x, o.gameObject.transform.position.y - yTranslation, 
 					o.gameObject.transform.position.z);
 				}
-				print (currentTime);
 				currentTime = 0;				
 			}
 		}

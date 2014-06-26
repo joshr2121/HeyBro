@@ -931,9 +931,9 @@ MonoBehaviour:
   - {fileID: 843233044}
   - {fileID: 537750676}
   - {fileID: 560857373}
-  pictogramHighfive: {fileID: 21300000, guid: c2cf446b09182d94c8940f5c68980589, type: 3}
-  pictogramFist: {fileID: 21300000, guid: c2cf446b09182d94c8940f5c68980589, type: 3}
-  pictogramElbow: {fileID: 21300000, guid: c2cf446b09182d94c8940f5c68980589, type: 3}
+  pictogramHighfive: {fileID: 21300000, guid: 0b1a23b680753c64fb89308298415cd4, type: 3}
+  pictogramFist: {fileID: 21300000, guid: 337a0a60325a31046b25b2a084ee2a88, type: 3}
+  pictogramElbow: {fileID: 21300000, guid: c53199519d30b1342a2812134cbaf683, type: 3}
   player: {fileID: 608541069}
   seqDelay: 0
   currentTime: 0
@@ -1226,9 +1226,9 @@ MonoBehaviour:
   - {fileID: 1456414801}
   - {fileID: 476131617}
   - {fileID: 2134559251}
-  pictogramHighfive: {fileID: 21300000, guid: c2cf446b09182d94c8940f5c68980589, type: 3}
-  pictogramFist: {fileID: 21300000, guid: c2cf446b09182d94c8940f5c68980589, type: 3}
-  pictogramElbow: {fileID: 21300000, guid: c2cf446b09182d94c8940f5c68980589, type: 3}
+  pictogramHighfive: {fileID: 21300000, guid: 0b1a23b680753c64fb89308298415cd4, type: 3}
+  pictogramFist: {fileID: 21300000, guid: 337a0a60325a31046b25b2a084ee2a88, type: 3}
+  pictogramElbow: {fileID: 21300000, guid: c53199519d30b1342a2812134cbaf683, type: 3}
   player: {fileID: 608541069}
   seqDelay: 0
   currentTime: 0
@@ -1513,8 +1513,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 608541069}
   enemy: {fileID: 1918594872}
+  seqQueueLeft: {fileID: 972614248}
+  seqQueueRight: {fileID: 1783043653}
   turn: 0
   charging: 0
+  playersTurn: 0
   hi5: 0
   seqGenerated: 0
   responseTime: 0

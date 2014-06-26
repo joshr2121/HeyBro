@@ -5,7 +5,9 @@ public class GameControl : MonoBehaviour {
 
 	//public SequenceControls player;	// player script
 	public SequenceControls player; 
-	public EnemyControls enemy; 	// enemy script 
+	public EnemyControls enemy; 	// enemy script
+	public Sequence_Queue seqQueueLeft;
+	public Sequence_Queue seqQueueRight;
 
 	public int turn; 
 	public bool charging;
@@ -22,6 +24,7 @@ public class GameControl : MonoBehaviour {
 
 	void Start () {
 		playersTurn = true;
+		hi5 = true;
 	}
 
 	void Update () {
@@ -53,8 +56,8 @@ public class GameControl : MonoBehaviour {
 		responseTime += Time.deltaTime; 
 
 		if (hi5){
-			playerTurn(); 
-			enemyTurn(); 
+			if (playersTurn) playerTurn ();
+			else enemyTurn ();
 		}
 
 		//else if (player.detectedA == 1 && player.detectedB == 4){
@@ -80,8 +83,10 @@ public class GameControl : MonoBehaviour {
 		if (!seqGenerated){
 			player.generateSeqParams(); 
 			player.generateSequence(player.currentSeq);
+			seqQueueLeft.LoadSequence (player.contactA, player.seqDelay);
+			seqQueueRight.LoadSequence (player.contactB, player.seqDelay);
 			seqGenerated = true; 
-			turn++; 	
+			turn++;
 		}
 		else {
 			if (player.checkBothEvents()){
@@ -121,7 +126,7 @@ public class GameControl : MonoBehaviour {
 
 			case (int) reaction.fail:
 				if (responseTime <= enemy.attackParams[(int) enemy.currentAttack][2]){
-					player.hp -= (int) enemy.attackParams[(int) enemy.currentAttack][0]; 
+				//	player.hp -= (int) enemy.attackParams[(int) enemy.currentAttack][0]; 
 					responseTime = 0;
 				}
 				break; 

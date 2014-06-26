@@ -53,12 +53,12 @@ public class SequenceControls : MonoBehaviour {
 	public float currentSeqTime; 	// currently accumulated time since the sequence began
 	
 	// PLAYER STUFF
-	public int hp = 100; 			
+	public int hp; 			
 	public bool attacking;			
 	public bool defending; 
 	public enum reaction { block, counter, fail };
 
-	public int counterDamage = 10;
+	public int counterDamage;
 	public int turn;  
 
 	// ENEMY STUFF
@@ -95,6 +95,7 @@ public class SequenceControls : MonoBehaviour {
 		hi5 = false; 
 
 		hp = 100;
+		counterDamage = 10;
 		attacking = true;
 		defending = false;
 
