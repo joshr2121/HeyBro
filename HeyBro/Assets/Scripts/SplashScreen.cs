@@ -37,7 +37,7 @@ public class SplashScreen : MonoBehaviour {
 				readFromArduino(); 
 
 				if (in1 == 1 && in2 == 4){
-					Application.LoadLevel("MainScene");
+				//	Application.LoadLevel("MainScene");
 				}
 			}
 
@@ -63,14 +63,9 @@ public class SplashScreen : MonoBehaviour {
 	 private void readFromArduino(){
 
 		if (in1 != 0 && in2 != 0){//(currentTime > readDelay){
-			print ("ENTERED CURRENT TIME > DELAY");
 			current = 0; 
-			sp.BaseStream.Flush ();
 			inputted1 = false; 
 			inputted2 = false; 
-			in1 = 0;
-			in2 = 0;
-			currentTime = 0; 
 		}
 		
 		print ("in1 = " + in1 + ", in2 = " + in2);
@@ -91,7 +86,7 @@ public class SplashScreen : MonoBehaviour {
 		}
 
 		else if (inputted1 && !inputted2) {
-			if (current > 3){
+			if (current > 0 && current > 3){
 				in2 = current;
 				inputted2 = true; 
 			}
