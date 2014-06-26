@@ -6,9 +6,6 @@ public class SplashScreen : MonoBehaviour {
 
 	// ARDUINO STUFF ("PORT" is not right)
 	SerialPort sp = new SerialPort("COM3", 9600);
-	public byte[] byteBuffer; 
-	public int byteOffset;
-	public int byteCount;
 
 	public int in1;
 	public int in2; 
@@ -19,13 +16,6 @@ public class SplashScreen : MonoBehaviour {
 
 	public float readDelay;
 	public float currentTime; 
-
-	// TO CHECK THAT THE RIGHT CONTACT WAS MADE
-	private bool touchDetectedA;
-	private bool touchDetectedB;
-
-	public int detectedA;
-	public int detectedB; 
 
 	void Start () {
 		 // ARDUINO STUFF
@@ -46,7 +36,7 @@ public class SplashScreen : MonoBehaviour {
 			try{
 				readFromArduino(); 
 
-				if (detectedA == 1 && detectedB == 4){
+				if (in1 == 1 && in2 == 4){
 					Application.LoadLevel("MainScene");
 				}
 			}
@@ -71,9 +61,18 @@ public class SplashScreen : MonoBehaviour {
 	 * -------------------------------------------------------------------------------------------------------------------------- */
 	
 	 private void readFromArduino(){
-	 	// (1) read from arduino into an array
-//	 	sp.Read(byteBuffer, byteOffset, byteCount);
 
+		if (in1 != 0 && in2 != 0){//(currentTime > readDelay){
+			print ("ENTERED CURRENT TIME > DELAY");
+			current = 0; 
+			sp.BaseStream.Flush ();
+			inputted1 = false; 
+			inputted2 = false; 
+			in1 = 0;
+			in2 = 0;
+			currentTime = 0; 
+		}
+		
 		print ("in1 = " + in1 + ", in2 = " + in2);
 
 		current = int.Parse (sp.ReadLine()); 
@@ -81,72 +80,28 @@ public class SplashScreen : MonoBehaviour {
 		print ("current = " + current); 
 
 		if (!inputted1 && !inputted2) {
-			if (current > 0 && current <= 2){
+			if (current > 0 && current <= 3){
 				in1 = current; 
 				inputted1 = true; 
 			}
-			else if (current > 0 && current > 2){
+			else if (current > 0 && current > 3){
 				in2 = current; 
 				inputted2 = true; 
 			}
 		}
 
 		else if (inputted1 && !inputted2) {
-			if (current > 0 && current > 2){
+			if (current > 3){
 				in2 = current;
 				inputted2 = true; 
 			}
 		}
 
 		else if (!inputted1 && inputted2){
-			if (current > 0 && current <= 2){
+			if (current > 0 && current <= 3){
 				in1 = current;
 				inputted1 = true; 
 			}
 		}
-
-
-		if (currentTime > readDelay){
-			print ("ENTERED CURRENT TIME > DELAY");
-			current = 0; 
-			sp.BaseStream.Flush ();
-				inputted1 = false; 
-				inputted2 = false; 
-				in1 = 0;
-				in2 = 0;
-				currentTime = 0; 
-		}
-
-
-		/*
-
-	 	// (2) check if current byte 
-	 	if (byteBuffer[0] < 4){
-	 		detectedA = byteBuffer[0];
-	 		touchDetectedA = true; 
-	 	}
-	 	else {
-	 		detectedB = byteBuffer[0];
-	 		touchDetectedB = true; 
-	 	}
-	 	// (3)
-	 	if (touchDetectedA){
-	 		int i = 1; 
-	 		while ((int) byteBuffer[i] == detectedA){
-	 			i++;
-	 		}
-	 		detectedB = byteBuffer[i];
-	 		touchDetectedB = true; 
-	 	}
-	 	// (4)
-	 	else if (touchDetectedB){
-	 		int i = 1; 
-	 		while ((int) byteBuffer[i] == detectedB){
-	 			i++;
-	 		}
-	 		detectedA = byteBuffer[i];
-	 		touchDetectedA = true; 
-	 	}
-	 	*/
 	 }
 }
