@@ -8,7 +8,8 @@ public class GameControl : MonoBehaviour {
 	public EnemyControls enemy; 	// enemy script 
 
 	public int turn; 
-	public bool charging; 
+	public bool charging;
+	public bool playersTurn;
 
 	public bool hi5; 				// begin and end a battle with a hi5
 	public bool seqGenerated; 		// true if a sequence has been generated but not completed 
@@ -20,7 +21,7 @@ public class GameControl : MonoBehaviour {
 	
 
 	void Start () {
-	
+		playersTurn = true;
 	}
 
 	void Update () {
@@ -81,7 +82,7 @@ public class GameControl : MonoBehaviour {
 			player.generateSequence(player.currentSeq);
 			seqGenerated = true; 
 			turn++; 	
-		}	
+		}
 		else {
 			if (player.checkBothEvents()){
 			 	player.correctMoves++; 
