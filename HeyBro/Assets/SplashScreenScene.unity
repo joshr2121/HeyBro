@@ -139,6 +139,13 @@ MonoBehaviour:
   byteBuffer: 
   byteOffset: 0
   byteCount: 0
+  in1: 0
+  in2: 0
+  current: 0
+  inputted1: 0
+  inputted2: 0
+  readDelay: 0
+  currentTime: 0
   detectedA: 0
   detectedB: 0
 --- !u!1 &318546950

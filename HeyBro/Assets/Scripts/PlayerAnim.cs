@@ -19,4 +19,27 @@ public class PlayerAnim : MonoBehaviour {
 	void Update () {
 	
 	}
+	
+	public void SetSprite (int sprite) {
+		switch (sprite) {
+		case -1: 
+			gameObject.GetComponent<SpriteRenderer>().sprite = handsUp;
+			break;
+		case 0: 
+			gameObject.GetComponent<SpriteRenderer>().sprite = highfive;
+			break;
+		case 1:
+			gameObject.GetComponent<SpriteRenderer>().sprite = punch;
+			break;
+		case 2:
+			gameObject.GetComponent<SpriteRenderer>().sprite = elbow;
+			break;
+		case 3:
+			gameObject.GetComponent<SpriteRenderer>().sprite = attack;
+			break;
+		case 4: 
+			gameObject.GetComponent<SpriteRenderer>().sprite = handsUp;
+			break;
+		}
+	}
 }

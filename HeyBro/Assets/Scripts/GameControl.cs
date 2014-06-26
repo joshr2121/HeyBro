@@ -21,7 +21,11 @@ public class GameControl : MonoBehaviour {
 
 	public float responseTime; 
 
+	public AudioSource srcSeqSound;
+	public AudioClip clipMoveSuccess;
+	public AudioClip clipWholeSeqSuccess;
 	
+	public AudioSource srcRobot;
 
 	void Start () {
 		hi5 = true;
@@ -69,6 +73,7 @@ public class GameControl : MonoBehaviour {
 
 		if (enemy.hp <= 0){
 			Debug.LogWarning ("Win");
+			Invoke ("loadSplashScreen", 5.0f);
 //			Application.LoadLevel("Win");
 		}
 
@@ -85,6 +90,8 @@ public class GameControl : MonoBehaviour {
 		seqQueueLeft.movingSpritesDown = true;
 		seqQueueRight.movingSpritesDown = true;
 		seqGenerated = false;
+		GameObject.Find ("Player_Left").GetComponent<PlayerAnim>().SetSprite (-1);
+		GameObject.Find ("Player_Right").GetComponent<PlayerAnim>().SetSprite (-1);
 	}
 	
 	private void startEnemyTurn () {
@@ -92,6 +99,7 @@ public class GameControl : MonoBehaviour {
 		seqQueueLeft.movingSpritesDown = false;
 		//Hax
 		Invoke ("startPlayerTurn", 1.0f);
+		
 	}
 
 	private void playerTurn(){
@@ -119,14 +127,28 @@ public class GameControl : MonoBehaviour {
 				//player.generateNextMove();
 			
 				if (player.correctMoves < player.seqMoves) {
+					srcSeqSound.clip = clipMoveSuccess;
+					srcSeqSound.Play ();
+					GameObject.Find ("Player_Left").GetComponent<PlayerAnim>().SetSprite (player.contactA[player.currentMove]);
+					GameObject.Find ("Player_Right").GetComponent<PlayerAnim>().SetSprite (player.contactB[player.currentMove]);
 					player.generateNextMove ();
 				}
 				else {
+					srcSeqSound.clip = clipWholeSeqSuccess;
+					srcSeqSound.Play ();
+					GameObject.Find ("Player_Left").GetComponent<PlayerAnim>().SetSprite (3);
+					GameObject.Find ("Player_Right").GetComponent<PlayerAnim>().SetSprite (3);
 					enemy.DamageEnemy (player.seqDamage);
 //					player.attacking = false;
 //					player.defending = true;
-					startEnemyTurn ();
-				}	
+					if (enemy.hp <= 0) {
+						playersTurn = false;
+						srcRobot.Play ();
+					}
+					else {
+						startEnemyTurn ();
+					}	
+				}
 			}
 
 			/** Yeah fuck all this  
@@ -189,6 +211,10 @@ public class GameControl : MonoBehaviour {
 	
 	private bool pictogramsTooLow () {
 		return ((seqQueueLeft.sequenceObjects[player.currentMove].transform.localPosition.y) < -1*seqObjectCloseEnoughDistance);
+	}
+	
+	private void loadSplashScreen () {
+		Application.LoadLevel ("SplashScreenScene");
 	}
 
 }

@@ -14,6 +14,7 @@ public class SequenceControls : MonoBehaviour {
 	public byte[] byteBuffer; 
 	public int byteOffset;
 	public int byteCount; 
+	public int current;
 	
 	// TO CREATE THE EVENTS THAT WILL BE CHECKED
 	public enum touch { palm, fist, elbow }; 
@@ -133,39 +134,37 @@ public class SequenceControls : MonoBehaviour {
 	 * (4) otherwise, do the same but to player A
 	 * -------------------------------------------------------------------------------------------------------------------------- */
 	
-	 public void readFromArduino(){
-	 	// (1) read from arduino into an array
-	 	sp.Read(byteBuffer, byteOffset, byteCount);
-
-	 	// (2) check if current byte 
-	 	if (byteBuffer[0] < 4){
-	 		detectedA = byteBuffer[0];
-	 		touchDetectedA = true; 
-	 	}
-	 	else {
-	 		detectedB = byteBuffer[0];
-	 		touchDetectedB = true; 
-	 	}
-	 	// (3)
-	 	if (touchDetectedA){
-	 		int i = 1; 
-	 		while ((int) byteBuffer[i] == detectedA){
-	 			i++;
-	 		}
-	 		detectedB = byteBuffer[i];
-	 		touchDetectedB = true; 
-	 	}
-	 	// (4)
-	 	else if (touchDetectedB){
-	 		int i = 1; 
-	 		while ((int) byteBuffer[i] == detectedB){
-	 			i++;
-	 		}
-	 		detectedA = byteBuffer[i];
-	 		touchDetectedA = true; 
-	 	}
-	 }
-	 /* --------------------------------------------------------------------------------------------------------------------------
+	public void readFromArduino(){
+		// (1) read from arduino into an array
+		current = int.Parse (sp.ReadLine()); 
+		
+		// (2) check if current byte 
+		if (!touchDetectedA && !touchDetectedB){
+			if (current > 0 && current < 4){
+				detectedA = current;
+				touchDetectedA = true; 
+			}
+			else if (current > 3){
+				detectedB = current;
+				touchDetectedB = true; 
+			}
+		}
+	// (3)
+	else if (touchDetectedA && !touchDetectedB){
+		if (current > 3){
+			detectedB = current;
+			touchDetectedB = true; 
+		}
+	}
+	
+	else if (!touchDetectedA && touchDetectedB){
+		if (current > 0 && current < 4){
+			detectedA = current;
+			touchDetectedA = true; 
+		}
+	}
+}
+/* --------------------------------------------------------------------------------------------------------------------------
 	 * NO ARGS. NO RETURN.
 	 * (1) check if players have highfived to begin the battle
 	 * (2) check if there is a sequence that has been generated/is being done 
