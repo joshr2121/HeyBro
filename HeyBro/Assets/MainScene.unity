@@ -767,7 +767,7 @@ Transform:
   m_Children:
   - {fileID: 642855665}
   - {fileID: 2139840337}
-  - {fileID: 1592197434}
+  - {fileID: 1391338835}
   m_Father: {fileID: 0}
   m_RootOrder: 1
 --- !u!114 &608541069
@@ -781,7 +781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a7a2a9ba1ff05b4fb1370c3635f4a6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyControl: 0
+  keyControl: 1
   byteBuffer: 
   byteOffset: 0
   byteCount: 0
@@ -1020,12 +1020,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1113354990}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -.601283848, y: .372099042, z: -.372099131, w: .601283848}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1592197434}
-  m_RootOrder: 0
+  m_Father: {fileID: 1391338835}
+  m_RootOrder: 1
 --- !u!199 &1113354992
 ParticleSystemRenderer:
   m_ObjectHideFlags: 0
@@ -2110,6 +2110,51 @@ ParticleSystem:
     subEmitterCollision1: {fileID: 0}
     subEmitterDeath: {fileID: 0}
     subEmitterDeath1: {fileID: 0}
+--- !u!1 &1391338834
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1391338835}
+  - 114: {fileID: 1391338836}
+  m_Layer: 0
+  m_Name: Particle Parent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1391338835
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1391338834}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.10023069, y: .0472166538, z: .952156067}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1592197434}
+  - {fileID: 1113354991}
+  m_Father: {fileID: 608541068}
+  m_RootOrder: 2
+--- !u!114 &1391338836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1391338834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd30f2edbe88a0041abdfa9a0c4f5621, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partVisible: 0
+  attackTime: 1
+  particle: {fileID: 1592197436}
+  particle2: {fileID: 1113354993}
 --- !u!1 &1456414801
 GameObject:
   m_ObjectHideFlags: 0
@@ -2254,7 +2299,6 @@ GameObject:
   - 4: {fileID: 1592197434}
   - 198: {fileID: 1592197436}
   - 199: {fileID: 1592197435}
-  - 114: {fileID: 1592197437}
   m_Layer: 0
   m_Name: Particle System
   m_TagString: Untagged
@@ -2269,12 +2313,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1592197433}
   m_LocalRotation: {x: -.601283848, y: .372099042, z: -.372099131, w: .601283848}
-  m_LocalPosition: {x: 2.10023069, y: .0472166538, z: .952156067}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1113354991}
-  m_Father: {fileID: 608541068}
-  m_RootOrder: 2
+  m_Children: []
+  m_Father: {fileID: 1391338835}
+  m_RootOrder: 0
 --- !u!199 &1592197435
 ParticleSystemRenderer:
   m_ObjectHideFlags: 0
@@ -3359,17 +3402,6 @@ ParticleSystem:
     subEmitterCollision1: {fileID: 0}
     subEmitterDeath: {fileID: 0}
     subEmitterDeath1: {fileID: 0}
---- !u!114 &1592197437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1592197433}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd30f2edbe88a0041abdfa9a0c4f5621, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1633128483
 GameObject:
   m_ObjectHideFlags: 0

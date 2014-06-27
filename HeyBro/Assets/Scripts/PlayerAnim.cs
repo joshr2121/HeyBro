@@ -36,6 +36,7 @@ public class PlayerAnim : MonoBehaviour {
 			break;
 		case 3:
 			gameObject.GetComponent<SpriteRenderer>().sprite = attack;
+			gameObject.transform.parent.GetComponentInChildren<Particle_Deactivate>().partVisible = true;
 			break;
 		case 4: 
 			gameObject.GetComponent<SpriteRenderer>().sprite = handsUp;
