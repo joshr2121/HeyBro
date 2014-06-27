@@ -23,6 +23,7 @@ public class Particle_Deactivate : MonoBehaviour {
 		{
 			particle.enableEmission = true;
 			particle2.enableEmission = true;
+			GameObject.Find ("Enemy_Face").GetComponent<Enemy_Faces>().SetSprite (1);
 			attackTime -= Time.deltaTime;
 		}
 		if (attackTime <= 0)
@@ -30,6 +31,7 @@ public class Particle_Deactivate : MonoBehaviour {
 			partVisible = false;
 			particle.enableEmission = false;
 			particle2.enableEmission = false;
+			GameObject.Find ("Enemy_Face").GetComponent<Enemy_Faces>().SetSprite (0);
 			attackTime = 2.0f;
 		}
 	

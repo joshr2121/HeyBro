@@ -4,11 +4,9 @@ using System.Collections;
 public class Enemy_Faces : MonoBehaviour {
 	public Sprite normal;
 	public Sprite angry;
-	public int state;
 
 	// Use this for initialization
 	void Start () {
-		state = 1;
 	
 	}
 	
@@ -18,7 +16,12 @@ public class Enemy_Faces : MonoBehaviour {
 
 	public void SetSprite (int sprite) {
 		switch (sprite) {
-
+		case 0: 
+			gameObject.GetComponent<SpriteRenderer>().sprite = normal;
+			break;
+		case 1:
+			gameObject.GetComponent<SpriteRenderer>().sprite = angry;
+			break;
 		}
 	
 	}
