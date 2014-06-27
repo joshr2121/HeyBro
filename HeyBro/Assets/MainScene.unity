@@ -841,7 +841,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a7a2a9ba1ff05b4fb1370c3635f4a6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyControl: 1
+  keyControl: 0
   arduino: {fileID: 109506304}
   byteBuffer: 
   byteOffset: 0
