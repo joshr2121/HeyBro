@@ -141,6 +141,52 @@ MonoBehaviour:
   enemy: {fileID: 1918594872}
   curPerc: 0
   targetPerc: 0
+--- !u!1 &109506303
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 109506305}
+  - 114: {fileID: 109506304}
+  m_Layer: 0
+  m_Name: Arduino Reader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &109506304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 109506303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ac3be85ff4b8b54a9c0eb52fc88e4d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  in1: 0
+  in2: 0
+  current: 0
+  inputted1: 0
+  inputted2: 0
+  readDelay: 0
+  currentTime: 0
+--- !u!4 &109506305
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 109506303}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.15794325, y: 1.68464804, z: -7.79335833}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
 --- !u!1 &131105133
 GameObject:
   m_ObjectHideFlags: 0
@@ -796,6 +842,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keyControl: 1
+  arduino: {fileID: 109506304}
   byteBuffer: 
   byteOffset: 0
   byteCount: 0
