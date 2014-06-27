@@ -49,7 +49,7 @@ public class Sequence_Queue : MonoBehaviour {
 			sequenceObjects[i].renderer.enabled = false;
 		}
 		//Multiplying delay for easier debugging
-		seqDelay = 2.5f*delay / yTicksBetweenPositions;
+		seqDelay = 5.0f*delay / yTicksBetweenPositions;
 	}
 	public void MoveSpriteDown(){
 		float yTranslation = yDistanceBetweenPictograms / (float) yTicksBetweenPositions;
