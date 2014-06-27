@@ -104,12 +104,20 @@ public class SequenceControls : MonoBehaviour {
 	}
 
 	void Update(){
-		
+			
+		if (sp.IsOpen){
+		//	try{
+				if (!keyControl){
+					readFromArduino(); 
+				}
+			//}
+			//catch (System.Exception) {}
+		}
 	}
 
 	void FixedUpdate(){
 		currentSeqTime += Time.deltaTime; 
-	
+/**	
 		if (sp.IsOpen){
 			try{
 				if (!keyControl){
@@ -118,7 +126,7 @@ public class SequenceControls : MonoBehaviour {
 			}
 			catch (System.Exception) {}
 		}
-		/**
+*/		/**
 		else {
 			palmA 	= Input.GetKey(KeyCode.Alpha1); 		// these will correspond to specific button inputs 
 			fistA 	= Input.GetKey(KeyCode.Alpha2);
@@ -142,16 +150,18 @@ public class SequenceControls : MonoBehaviour {
 	public void readFromArduino(){
 		print ("reading from arduino"); 
 		
+		// (1) read from arduino into an array
+		current = int.Parse (sp.ReadLine()); 
+		print ("reading " +  int.Parse (sp.ReadLine()));
+		
+		
 		if (detectedA != 0 && detectedB != 0){
 		print ("both inputs taken");
 			current = 0; 
 			touchDetectedA = false; 
 			touchDetectedB = false; 
 		}
-		
-		// (1) read from arduino into an array
-		current = int.Parse (sp.ReadLine()); 
-		
+				
 		// (2) check if current byte 
 		if (!touchDetectedA && !touchDetectedB){
 			if (current > 0 && current < 4){
