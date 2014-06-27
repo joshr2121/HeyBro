@@ -297,6 +297,9 @@ public class SequenceControls : MonoBehaviour {
 			//Hax
 			if (defending) {
 				blocked = true;
+				GameControl game = GameObject.Find ("Game").GetComponent<GameControl>();
+				game.srcSeqSound.clip = game.clipBlockSuccess;
+				game.srcSeqSound.Play ();
 			}
 	 		return true; 
 	 	}

@@ -24,6 +24,7 @@ public class GameControl : MonoBehaviour {
 	public AudioSource srcSeqSound;
 	public AudioClip clipMoveSuccess;
 	public AudioClip clipWholeSeqSuccess;
+	public AudioClip clipBlockSuccess;
 	
 	public AudioSource srcRobot;
 	public AudioSource srcPlayersDie;
