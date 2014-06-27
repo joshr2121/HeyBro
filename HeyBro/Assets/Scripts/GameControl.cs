@@ -113,6 +113,8 @@ public class GameControl : MonoBehaviour {
 	}
 		
 	private void checkBlocked () {
+		
+		GameObject.Find("Enemy Particle Parent").GetComponent<Enemy_Particles>().partVisible = true;
 		if (!player.blocked) {
 			player.hp -= 20;
 		}

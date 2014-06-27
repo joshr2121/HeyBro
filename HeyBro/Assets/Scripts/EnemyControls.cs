@@ -61,7 +61,7 @@ public class EnemyControls : MonoBehaviour {
 
 		if (!charging){
 			int atk;
-			atk = Random.Range (0, 100); 
+			atk = Random.Range (0, 100);
 
 			// 20% chance to get laser strike
 			if (atk < 20){
