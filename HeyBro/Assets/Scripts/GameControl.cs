@@ -122,10 +122,10 @@ public class GameControl : MonoBehaviour {
 		}
 		if (player.hp <= 0) {
 			srcPlayersDie.Play ();
-			Invoke ("loadSplashScreen", 4.0f);			
+			Invoke ("loadSplashScreen", 5.0f);			
 		}
 		else {
-			Invoke ("startPlayerTurn", 4.0f);
+			Invoke ("startPlayerTurn", 5.0f);
 		}
 	}
 

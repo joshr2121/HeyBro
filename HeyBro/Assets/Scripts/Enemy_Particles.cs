@@ -8,13 +8,14 @@ public class Enemy_Particles : MonoBehaviour {
 	public ParticleSystem laser2;
 	public AudioClip laserSound;
 	public AudioSource attackAudio;
-	public float attackTime = 2.0f;
+	public float attackTime;
 
 	// Use this for initialization
 	void Start () {
 		partVisible = false;
 		laser.enableEmission = false;
 		laser2.enableEmission = false;
+		attackTime = 4.0f;
 	}
 	
 	// Update is called once per frame
@@ -23,8 +24,11 @@ public class Enemy_Particles : MonoBehaviour {
 		{
 			laser.enableEmission = true;
 			laser2.enableEmission = true;
-			attackAudio.clip = laserSound;
-			attackAudio.Play();
+			if (attackAudio.isPlaying == false)
+				{
+				attackAudio.clip = laserSound;
+				attackAudio.Play();
+				}
 			GameObject.Find ("Enemy_Face").GetComponent<Enemy_Faces>().SetSprite (3);
 			attackTime -= Time.deltaTime;
 		}
@@ -35,7 +39,7 @@ public class Enemy_Particles : MonoBehaviour {
 			laser2.enableEmission = false;
 			GameObject.Find("Forcefield").GetComponent<Display_Forcefield>().showField = false;
 			GameObject.Find ("Enemy_Face").GetComponent<Enemy_Faces>().SetSprite (0);
-			attackTime = 2.0f;
+			attackTime = 4.0f;
 		}
 	
 	}
