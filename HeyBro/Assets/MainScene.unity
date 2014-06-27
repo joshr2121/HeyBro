@@ -6253,6 +6253,7 @@ MonoBehaviour:
   playersTurn: 0
   hi5: 0
   seqGenerated: 0
+  hasResetInput: 0
   responseTime: 0
   srcSeqSound: {fileID: 2061117481}
   clipMoveSuccess: {fileID: 8300000, guid: 6c304bad6d71e8347bde0152a99829d3, type: 3}
