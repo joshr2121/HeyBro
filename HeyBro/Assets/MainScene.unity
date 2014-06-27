@@ -800,6 +800,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normal: {fileID: 21300000, guid: 9dbec19c441e72741a77b0fc47d0ef12, type: 3}
   angry: {fileID: 21300000, guid: 141f4ebe9b5348048ba0e2d2da7e0678, type: 3}
+  happy: {fileID: 21300000, guid: be1045e2eabac7e43bf6115aa2d8e814, type: 3}
+  laserattack: {fileID: 21300000, guid: 51d228ced7010734aaab44059a821092, type: 3}
 --- !u!1 &608541067
 GameObject:
   m_ObjectHideFlags: 0
@@ -971,7 +973,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 697811005}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.352771997, y: .416913033, z: -.100000001}
+  m_LocalPosition: {x: -.401723862, y: .381649017, z: -.0999999046}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 872160235}
@@ -1067,7 +1069,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 872160234}
   m_LocalRotation: {x: -.310115039, y: -.635475099, z: .635475218, w: .310115039}
-  m_LocalPosition: {x: .1498909, y: .117001414, z: 9.68575478e-08}
+  m_LocalPosition: {x: .0341410637, y: .0266497135, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 697811006}
@@ -1354,7 +1356,7 @@ ParticleSystem:
     enabled: 1
     type: 4
     radius: .00999999978
-    angle: 15
+    angle: 20
     length: 5
     boxX: 1
     boxY: 1
@@ -1366,7 +1368,7 @@ ParticleSystem:
     enabled: 1
     m_Type: 0
     rate:
-      scalar: 10
+      scalar: 25
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1574,7 +1576,7 @@ ParticleSystem:
         rgba: 4294967295
       minMaxState: 1
   UVModule:
-    enabled: 0
+    enabled: 1
     frameOverTime:
       scalar: 1
       maxCurve:
@@ -3355,7 +3357,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1159447038}
   m_LocalRotation: {x: -.310115069, y: -.635475159, z: .635475159, w: .310115069}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: .0251131058, y: -.0321725607, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 697811006}
@@ -3642,7 +3644,7 @@ ParticleSystem:
     enabled: 1
     type: 4
     radius: .00999999978
-    angle: 15
+    angle: 20
     length: 5
     boxX: 1
     boxY: 1
@@ -3654,7 +3656,7 @@ ParticleSystem:
     enabled: 1
     m_Type: 0
     rate:
-      scalar: 10
+      scalar: 25
       maxCurve:
         serializedVersion: 2
         m_Curve:

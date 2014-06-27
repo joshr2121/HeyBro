@@ -21,6 +21,7 @@ public class Enemy_Particles : MonoBehaviour {
 		{
 			laser.enableEmission = true;
 			laser2.enableEmission = true;
+			GameObject.Find ("Enemy_Face").GetComponent<Enemy_Faces>().SetSprite (3);
 			attackTime -= Time.deltaTime;
 		}
 		if (attackTime <= 0)
@@ -29,6 +30,7 @@ public class Enemy_Particles : MonoBehaviour {
 			laser.enableEmission = false;
 			laser2.enableEmission = false;
 			GameObject.Find("Forcefield").GetComponent<Display_Forcefield>().showField = false;
+			GameObject.Find ("Enemy_Face").GetComponent<Enemy_Faces>().SetSprite (0);
 			attackTime = 2.0f;
 		}
 	

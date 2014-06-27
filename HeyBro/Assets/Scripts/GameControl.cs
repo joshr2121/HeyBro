@@ -155,6 +155,7 @@ public class GameControl : MonoBehaviour {
 					seqQueueRight.sequenceObjects[i].GetComponent<SpriteRenderer>().enabled = false;
 				}	
 				startEnemyTurn ();
+				GameObject.Find ("Enemy_Face").GetComponent<Enemy_Faces>().SetSprite (2);
 			}
 			else if (player.checkBothEvents() && pictogramsInRange()){
 				hasResetInput = false;
