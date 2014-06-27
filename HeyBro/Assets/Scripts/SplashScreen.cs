@@ -91,14 +91,14 @@ public class SplashScreen : MonoBehaviour {
 				in1 = current; 
 				inputted1 = true; 
 			}
-			else if (current > 0 && current > 3){
+			else if (current > 3){
 				in2 = current; 
 				inputted2 = true; 
 			}
 		}
 
 		else if (inputted1 && !inputted2) {
-			if (current > 0 && current > 3){
+			if (current > 3){
 				in2 = current;
 				inputted2 = true; 
 			}
