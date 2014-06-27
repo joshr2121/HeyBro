@@ -13,6 +13,7 @@ public class Sequence_Queue : MonoBehaviour {
 	// delay stuff
 	public SequenceControls player; 
 	public float seqDelay;
+	public float seqSpeedMultiplier;
 	public float currentTime;
 	public float yDistanceBetweenPictograms;
 	public int yTicksBetweenPositions;
@@ -24,6 +25,7 @@ public class Sequence_Queue : MonoBehaviour {
 		sequenceSprites = new Sprite[3] {pictogramHighfive, pictogramFist, pictogramElbow};
 		yDistanceBetweenPictograms = 0.8f;
 		yTicksBetweenPositions = 4;
+		seqSpeedMultiplier = 8.0f;
 	}
 	
 	// Update is called once per frame
@@ -49,7 +51,7 @@ public class Sequence_Queue : MonoBehaviour {
 			sequenceObjects[i].renderer.enabled = false;
 		}
 		//Multiplying delay for easier debugging
-		seqDelay = 5*delay / yTicksBetweenPositions;
+		seqDelay = (seqSpeedMultiplier * delay) / yTicksBetweenPositions;
 	}
 	public void MoveSpriteDown(){
 		float yTranslation = yDistanceBetweenPictograms / (float) yTicksBetweenPositions;
