@@ -34,7 +34,7 @@ public class GameControl : MonoBehaviour {
 		hi5 = true;
 		hasResetInput = false;
 		startPlayerTurn ();
-		seqObjectCloseEnoughDistance = 0.4f;
+		seqObjectCloseEnoughDistance = 0.5f;
 	}
 
 	void Update () {
