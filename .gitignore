@@ -12,7 +12,6 @@
 /*.pidb
 /*.booproj
 HeyBro/ProjectSettings/ProjectSettings.asset
-*.meta
 HeyBro/Assembly-CSharp-vs.csproj
 HeyBro/Assembly-CSharp.csproj
 *.sln

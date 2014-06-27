@@ -32,7 +32,7 @@
 unsigned char PadNote[6] = {52,16,66,63,40,65};         // MIDI notes from 0 to 127 (Mid C = 60)
 
 // JOSH'S LAPTOP
-int PadCutOff[6] = {25,25,500,400,700,500};           // Minimum Analog value to cause a drum hit
+int PadCutOff[6] = {25,10,100,200,40,100};           // Minimum Analog value to cause a drum hit
 
 // ACB'S LAPTOP
 //int PadCutOff[6] = {100,100,500,400,200,500};           // Minimum Analog value to cause a drum hit

@@ -140,9 +140,11 @@ public class SequenceControls : MonoBehaviour {
 	 * -------------------------------------------------------------------------------------------------------------------------- */
 	
 	public void readFromArduino(){
-	
+		print ("reading from arduino"); 
+		
 		if (detectedA != 0 && detectedB != 0){
-			//current = 0; 
+		print ("both inputs taken");
+			current = 0; 
 			touchDetectedA = false; 
 			touchDetectedB = false; 
 		}
@@ -153,10 +155,12 @@ public class SequenceControls : MonoBehaviour {
 		// (2) check if current byte 
 		if (!touchDetectedA && !touchDetectedB){
 			if (current > 0 && current < 4){
+			print ("taking input1 first"); 
 				detectedA = current;
 				touchDetectedA = true; 
 			}
 			else if (current > 3){
+			print ("taking input2 first"); 
 				detectedB = current;
 				touchDetectedB = true; 
 			}
@@ -164,6 +168,7 @@ public class SequenceControls : MonoBehaviour {
 	// (3)
 	else if (touchDetectedA && !touchDetectedB){
 		if (current > 3){
+				print ("taking input2 after input1"); 
 			detectedB = current;
 			touchDetectedB = true; 
 		}
@@ -171,6 +176,7 @@ public class SequenceControls : MonoBehaviour {
 	
 	else if (!touchDetectedA && touchDetectedB){
 		if (current > 0 && current < 4){
+				print ("taking input1 after input2"); 
 			detectedA = current;
 			touchDetectedA = true; 
 		}
