@@ -147,6 +147,8 @@ MonoBehaviour:
   loadingNewScene: 0
   srcLoading: {fileID: 56605400}
   srcMusic: {fileID: 318546951}
+  loadingEyeguy: {fileID: 21300000, guid: 47b1e7ad939915042874ccdc743ae767, type: 3}
+  loadingGator: {fileID: 21300000, guid: 78eec64b9a460ad40bb124b0c6b38e2a, type: 3}
 --- !u!82 &56605400
 AudioSource:
   m_ObjectHideFlags: 0

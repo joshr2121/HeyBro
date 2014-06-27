@@ -20,6 +20,9 @@ public class SplashScreen : MonoBehaviour {
 	public bool loadingNewScene;
 	public AudioSource srcLoading;
 	public AudioSource srcMusic;
+	
+	public Sprite loadingEyeguy;
+	public Sprite loadingGator;
 
 	void Start () {
 		 // ARDUINO STUFF
@@ -49,7 +52,9 @@ public class SplashScreen : MonoBehaviour {
 					if (!loadingNewScene) {
 						srcLoading.Play ();
 						loadingNewScene = true;
-						Invoke ("loadMainScene", 1.0f);
+						GameObject.Find ("Eyeguy").GetComponent<SpriteRenderer>().sprite = loadingEyeguy;
+						GameObject.Find ("Gator").GetComponent<SpriteRenderer>().sprite = loadingGator;
+						Invoke ("loadMainScene", 2.0f);
 					}
 				}
 			}
