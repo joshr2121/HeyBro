@@ -37,7 +37,7 @@ public class SplashScreen : MonoBehaviour {
 	void Update () {
 
 		if (loadingNewScene) {
-			srcMusic.volume -= 0.001f;
+			srcMusic.volume -= 0.003f;
 		}
 
 		if (sp.IsOpen){
@@ -49,7 +49,7 @@ public class SplashScreen : MonoBehaviour {
 					if (!loadingNewScene) {
 						srcLoading.Play ();
 						loadingNewScene = true;
-						Invoke ("loadMainScene", 3.0f);
+						Invoke ("loadMainScene", 1.0f);
 					}
 				}
 			}
