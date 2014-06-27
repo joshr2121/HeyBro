@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\EnemyAnim.cs" />
      <Compile Include="Assets\Scripts\EnemyControls.cs" />
+     <Compile Include="Assets\Scripts\Enemy_Faces.cs" />
      <Compile Include="Assets\Scripts\GameControl.cs" />
      <Compile Include="Assets\Scripts\HealthBarEnemy.cs" />
      <Compile Include="Assets\Scripts\HealthBarPlayer.cs" />
