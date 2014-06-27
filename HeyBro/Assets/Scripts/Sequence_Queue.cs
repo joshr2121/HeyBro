@@ -22,7 +22,7 @@ public class Sequence_Queue : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		sequenceSprites = new Sprite[3] {pictogramHighfive, pictogramFist, pictogramElbow};
-		yDistanceBetweenPictograms = 0.8f;
+		yDistanceBetweenPictograms = 1.0f;
 		yTicksBetweenPositions = 4;
 	}
 	
