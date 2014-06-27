@@ -9,6 +9,9 @@ public class SequenceControls : MonoBehaviour {
 	// TRUE IF USING KEYBOARD, FALSE IF ARDUINO
 	public bool keyControl; 
 
+	// GETTING FROM ARDUINO
+	public ArduinoRead arduino; 
+
 	// ARDUINO STUFF ("PORT" is not right)
 	public SerialPort sp = new SerialPort("COM3", 9600);
 	public byte[] byteBuffer; 
@@ -83,11 +86,12 @@ public class SequenceControls : MonoBehaviour {
 			elbowB	= Input.GetKeyDown(KeyCode.Alpha0);
 		}
 		*/
+		/*
 		if (!keyControl) {
 			// ARDUINO STUFF
 			sp.Open();				// open the port
 			sp.ReadTimeout = 1; 	// how often unity checks (throws exception if isn't open)
-		}
+		}*/
 
 		touchDetectedA = false; 
 		touchDetectedB = false;
@@ -104,15 +108,8 @@ public class SequenceControls : MonoBehaviour {
 	}
 
 	void Update(){
-			
-		if (sp.IsOpen){
-			try{
-				if (!keyControl){
-					readFromArduino(); 
-				}
-			}
-			catch (System.Exception) {}
-		}
+		detectedA = arduino.in1; 
+		detectedB = arduino.in2;
 	}
 
 	void FixedUpdate(){
@@ -146,7 +143,7 @@ public class SequenceControls : MonoBehaviour {
 	 * (3) if corresponded to player A, find the first different byte, set it to player B
 	 * (4) otherwise, do the same but to player A
 	 * -------------------------------------------------------------------------------------------------------------------------- */
-	
+	/*
 	public void readFromArduino(){
 		print ("reading from arduino"); 
 		
@@ -177,23 +174,23 @@ public class SequenceControls : MonoBehaviour {
 				touchDetectedB = true; 
 			}
 		}
-	// (3)
-	else if (touchDetectedA && !touchDetectedB){
-		if (current > 3){
-				print ("taking input2 after input1"); 
-			detectedB = current;
-			touchDetectedB = true; 
+		// (3)
+		else if (touchDetectedA && !touchDetectedB){
+			if (current > 3){
+					print ("taking input2 after input1"); 
+				detectedB = current;
+				touchDetectedB = true; 
+			}
 		}
-	}
-	
-	else if (!touchDetectedA && touchDetectedB){
-		if (current > 0 && current < 4){
-				print ("taking input1 after input2"); 
-			detectedA = current;
-			touchDetectedA = true; 
+		
+		else if (!touchDetectedA && touchDetectedB){
+			if (current > 0 && current < 4){
+					print ("taking input1 after input2"); 
+				detectedA = current;
+				touchDetectedA = true; 
+			}
 		}
-	}
-}
+	}*/
 
 	/* --------------------------------------------------------------------------------------------------------------------------
 	 * NO ARGS. NO RETURN.
@@ -340,7 +337,7 @@ public class SequenceControls : MonoBehaviour {
 			elbowA	= Input.GetKey(KeyCode.Alpha3);
 		}
 		// (1) touch detected from player A
-		//touchDetectedA = true;
+		touchDetectedA = true;
 		
 		// (2) check that hit within window
 //		if (currentSeqTime < seqWindow){
@@ -396,7 +393,7 @@ public class SequenceControls : MonoBehaviour {
 		}
 
 		// (1) touch detected from player B
-		//touchDetectedB = true; 
+		touchDetectedB = true; 
 		
 		// (2) if the players hit within the window of time 
 		//if (currentSeqTime < seqWindow){

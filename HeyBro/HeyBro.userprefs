@@ -1,15 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Particle_Deactivate.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Sequence_Queue.cs">
     <Files>
-      <File FileName="Assets\Scripts\PlayerAnim.cs" Line="16" Column="3" />
-      <File FileName="Assets\Scripts\EnemyAnim.cs" Line="6" Column="26" />
-      <File FileName="Assets\Scripts\SplashScreen.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SequenceControls.cs" Line="7" Column="16" />
+      <File FileName="Assets\Scripts\SplashScreen.cs" Line="67" Column="2" />
+      <File FileName="Assets\Scripts\SequenceControls.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Sequence_Queue.cs" Line="29" Column="27" />
       <File FileName="Assets\Scripts\EnemyControls.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GameControl.cs" Line="96" Column="3" />
-      <File FileName="Assets\Scripts\Particle_Deactivate.cs" Line="11" Column="32" />
-      <File FileName="Assets\Scripts\Enemy_Faces.cs" Line="9" Column="17" />
+      <File FileName="Assets\Scripts\GameControl.cs" Line="83" Column="30" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
