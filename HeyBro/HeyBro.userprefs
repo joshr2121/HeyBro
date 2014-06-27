@@ -1,12 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\EnemyControls.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerAnim.cs">
     <Files>
-      <File FileName="Assets\Scripts\SplashScreen.cs" Line="77" Column="1" />
-      <File FileName="Assets\Scripts\SequenceControls.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PlayerAnim.cs" Line="23" Column="38" />
+      <File FileName="Assets\Scripts\SplashScreen.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SequenceControls.cs" Line="447" Column="2" />
       <File FileName="Assets\Scripts\Sequence_Queue.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\EnemyControls.cs" Line="5" Column="1" />
-      <File FileName="Assets\Scripts\GameControl.cs" Line="34" Column="39" />
+      <File FileName="Assets\Scripts\EnemyControls.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GameControl.cs" Line="255" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
