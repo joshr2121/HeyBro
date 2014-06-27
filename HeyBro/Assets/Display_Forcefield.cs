@@ -19,6 +19,10 @@ public class Display_Forcefield : MonoBehaviour {
 		{
 			forcefield.renderer.enabled = true;
 		}
+		else if (showField == false)
+		{
+			forcefield.renderer.enabled = false;
+		}
 
 	
 	}

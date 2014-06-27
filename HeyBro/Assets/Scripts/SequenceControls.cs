@@ -307,6 +307,7 @@ public class SequenceControls : MonoBehaviour {
 			//Hax
 			if (defending) {
 				blocked = true;
+				GameObject.Find("Forcefield").GetComponent<Display_Forcefield>().showField = true;
 				GameControl game = GameObject.Find ("Game").GetComponent<GameControl>();
 				game.srcSeqSound.clip = game.clipBlockSuccess;
 				game.srcSeqSound.Play ();
