@@ -111,21 +111,21 @@ public class GameControl : MonoBehaviour {
 		seqQueueLeft.LoadSequence (player.contactA, player.seqDelay);
 		seqQueueRight.LoadSequence (player.contactB, player.seqDelay);
 		//Hax!
-		Invoke ("checkBlocked", 8.0f);
+		//Invoke ("checkBlocked", 8.0f);
 	}
 		
 	private void checkBlocked () {
-		
+		player.defending = false;
 		GameObject.Find("Enemy Particle Parent").GetComponent<Enemy_Particles>().partVisible = true;
 		if (!player.blocked) {
 			player.hp -= 20;
 		}
 		if (player.hp <= 0) {
 			srcPlayersDie.Play ();
-			Invoke ("loadSplashScreen", 5.0f);			
+			Invoke ("loadSplashScreen", 4.0f);			
 		}
 		else {
-			Invoke ("startPlayerTurn", 5.0f);
+			Invoke ("startPlayerTurn", 4.0f);
 		}
 	}
 
@@ -212,20 +212,24 @@ public class GameControl : MonoBehaviour {
 		responseTime = 0;
 		//playerResponse(); 
 		
-		if (player.checkBothEvents() && pictogramsInRange()) {
-			player.blocked = true;
-			seqQueueLeft.sequenceObjects[0].GetComponent<SpriteRenderer>().enabled = false;
-			seqQueueRight.sequenceObjects[0].GetComponent<SpriteRenderer>().enabled = false;
-		}
+		if (player.defending) {
 		
-		if (pictogramsTooLow ()) {
-			for (int i = 0; i < 6; i++) {
-				seqQueueLeft.sequenceObjects[i].GetComponent<SpriteRenderer>().enabled = false;
-				seqQueueRight.sequenceObjects[i].GetComponent<SpriteRenderer>().enabled = false;
+			if (player.checkBothEvents() && pictogramsInRange()) {
+				player.blocked = true;
+				checkBlocked ();
+				seqQueueLeft.sequenceObjects[0].GetComponent<SpriteRenderer>().enabled = false;
+				seqQueueRight.sequenceObjects[0].GetComponent<SpriteRenderer>().enabled = false;
 			}
 			
-		}
-		
+			if (pictogramsTooLow ()) {
+				checkBlocked ();
+				for (int i = 0; i < 6; i++) {
+					seqQueueLeft.sequenceObjects[i].GetComponent<SpriteRenderer>().enabled = false;
+					seqQueueRight.sequenceObjects[i].GetComponent<SpriteRenderer>().enabled = false;
+				}
+				
+			}
+		}	
 	}
 
 	private void playerResponse(){
