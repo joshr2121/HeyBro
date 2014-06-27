@@ -142,7 +142,7 @@ public class SequenceControls : MonoBehaviour {
 	public void readFromArduino(){
 	
 		if (detectedA != 0 && detectedB != 0){
-			current = 0; 
+			//current = 0; 
 			touchDetectedA = false; 
 			touchDetectedB = false; 
 		}
@@ -176,65 +176,6 @@ public class SequenceControls : MonoBehaviour {
 		}
 	}
 }
-/* --------------------------------------------------------------------------------------------------------------------------
-	 * NO ARGS. NO RETURN.
-	 * (1) check if players have highfived to begin the battle
-	 * (2) check if there is a sequence that has been generated/is being done 
-	 *		(2i)	generate a random sequence type and its corresponding parameters
-	 *		(2ii) 	generate the moves in the sequence
-	 * (3) if a sequence has already been generated - 
-	 *		(3i)	check if the players did the current move correctly
-	 *		(3ii)	reduce the number of moves left
-	 * (4) if run out of moves in sequence (completed the sequence)
-	 *		(4i)	if did all moves in sequence right, deal damage
-	 * 		(4ii)	finished the sequence, so prepare to receive attack 
-	 * -------------------------------------------------------------------------------------------------------------------------- */
-	/*public void battleProceed(){
-		if (hi5) { 
-			if (attacking){
-				if (!seqGenerated){
-					generateSeqParams(); 
-					generateSequence(currentSeq); 
-					seqGenerated = true; 
-					turn++; 
-				}
-				else {
-					if (checkBothEvents()){
-					 	correctMoves++; 
-					}
-					seqMoves--; 
-					// check if sequence is finished 
-					if (seqMoves <= 0){
-						// check if all moves in sequence were correctly done  
-						if (correctMoves >= seqMoves){ 
-							//deal damage
-							gameObject.SendMessage("DamageEnemy", seqDamage);
-						}
-						seqGenerated = false; // to generate a new sequence 
-						attacking = false;
-						defending = true; 
-					}
-				}
-			}
-			else if (defending){
-
-				int resp = enemyResponse(); 
-				switch (resp){
-					case (int) reaction.fail:
-						// hp -= current enemy attack damage
-						hp -= (int) enemy.attackParams[(int) enemy.currentAttack][0]; 
-						break; 
-
-					case (int) reaction.counter:
-						gameObject.SendMessage("DamageEnemy", counterDamage); 
-						break;
-				}
-			}
-		}
-		else if (detectedA == 1 && detectedB == 4){
-			hi5 = true; 
-		}
-	}*/
 
 	/* --------------------------------------------------------------------------------------------------------------------------
 	 * NO ARGS. NO RETURN.
