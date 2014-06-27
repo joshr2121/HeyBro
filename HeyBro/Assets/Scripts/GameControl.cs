@@ -81,6 +81,7 @@ public class GameControl : MonoBehaviour {
 
 		else if (player.hp <= 0){
 			Debug.LogWarning ("Lose");
+			player.sp.Close(); 
 //			Application.LoadLevel("Lose");
 		}
 //		player.attacking = true; 
@@ -108,7 +109,7 @@ public class GameControl : MonoBehaviour {
 		seqQueueLeft.LoadSequence (player.contactA, player.seqDelay);
 		seqQueueRight.LoadSequence (player.contactB, player.seqDelay);
 		//Hax!
-		Invoke ("checkBlocked", 4.0f);
+		Invoke ("checkBlocked", 8.0f);
 	}
 		
 	private void checkBlocked () {

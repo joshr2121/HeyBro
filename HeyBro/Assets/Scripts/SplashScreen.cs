@@ -42,7 +42,7 @@ public class SplashScreen : MonoBehaviour {
 
 		if (sp.IsOpen){
 
-			//try{
+			try{
 				readFromArduino(); 
 
 				if (in1 == 1 && in2 == 4){
@@ -52,11 +52,10 @@ public class SplashScreen : MonoBehaviour {
 						Invoke ("loadMainScene", 1.0f);
 					}
 				}
-			//}
+			}
 
-			//catch (System.Exception){
+			catch (System.Exception){}
 				// do nothing if there's an exception i.e. if port is not open
-			//}
 
 		}
 	}

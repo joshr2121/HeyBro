@@ -10,7 +10,7 @@ public class SequenceControls : MonoBehaviour {
 	public bool keyControl; 
 
 	// ARDUINO STUFF ("PORT" is not right)
-	SerialPort sp = new SerialPort("COM3", 9600);
+	public SerialPort sp = new SerialPort("COM3", 9600);
 	public byte[] byteBuffer; 
 	public int byteOffset;
 	public int byteCount; 
@@ -106,12 +106,12 @@ public class SequenceControls : MonoBehaviour {
 	void Update(){
 			
 		if (sp.IsOpen){
-		//	try{
+			try{
 				if (!keyControl){
 					readFromArduino(); 
 				}
-			//}
-			//catch (System.Exception) {}
+			}
+			catch (System.Exception) {}
 		}
 	}
 
@@ -150,9 +150,11 @@ public class SequenceControls : MonoBehaviour {
 	public void readFromArduino(){
 		print ("reading from arduino"); 
 		
+		print ("in1 = " + detectedA + ", in2 = " + detectedB);
+		
 		// (1) read from arduino into an array
 		current = int.Parse (sp.ReadLine()); 
-		print ("reading " +  int.Parse (sp.ReadLine()));
+		print ("current = " + current); 
 		
 		
 		if (detectedA != 0 && detectedB != 0){
@@ -338,7 +340,7 @@ public class SequenceControls : MonoBehaviour {
 			elbowA	= Input.GetKey(KeyCode.Alpha3);
 		}
 		// (1) touch detected from player A
-		touchDetectedA = true;
+		//touchDetectedA = true;
 		
 		// (2) check that hit within window
 //		if (currentSeqTime < seqWindow){
@@ -394,7 +396,7 @@ public class SequenceControls : MonoBehaviour {
 		}
 
 		// (1) touch detected from player B
-		touchDetectedB = true; 
+		//touchDetectedB = true; 
 		
 		// (2) if the players hit within the window of time 
 		//if (currentSeqTime < seqWindow){
