@@ -6,6 +6,8 @@ public class Enemy_Particles : MonoBehaviour {
 	public bool partVisible;
 	public ParticleSystem laser;
 	public ParticleSystem laser2;
+	public AudioClip laserSound;
+	public AudioSource attackAudio;
 	public float attackTime = 2.0f;
 
 	// Use this for initialization
@@ -21,6 +23,8 @@ public class Enemy_Particles : MonoBehaviour {
 		{
 			laser.enableEmission = true;
 			laser2.enableEmission = true;
+			attackAudio.clip = laserSound;
+			attackAudio.Play();
 			GameObject.Find ("Enemy_Face").GetComponent<Enemy_Faces>().SetSprite (3);
 			attackTime -= Time.deltaTime;
 		}
