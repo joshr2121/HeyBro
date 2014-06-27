@@ -164,8 +164,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 131105133}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.9199419, y: -.820319772, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalPosition: {x: 2.78709078, y: -1.03290141, z: 0}
+  m_LocalScale: {x: 1.02869582, y: 1.02869558, z: .685797095}
   m_Children: []
   m_Father: {fileID: 1918594874}
   m_RootOrder: 0
@@ -189,7 +189,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f91e177ec5ab08d4abb7e4c8b619630d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 45884e335c3653247b57e6f149ed99db, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &132181506
 GameObject:
@@ -698,6 +698,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 602636304}
   - 212: {fileID: 602636305}
+  - 114: {fileID: 602636306}
   m_Layer: 0
   m_Name: Enemy_Face
   m_TagString: Untagged
@@ -712,7 +713,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 602636303}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.53045881, y: -1.40384686, z: 0}
+  m_LocalPosition: {x: 1.2571547, y: .570070028, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1918594874}
@@ -723,7 +724,7 @@ SpriteRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 602636303}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_LightmapIndex: 255
@@ -739,6 +740,19 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9dbec19c441e72741a77b0fc47d0ef12, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &602636306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 602636303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7287a27df74b8884389d18245c49a63b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normal: {fileID: 21300000, guid: 9dbec19c441e72741a77b0fc47d0ef12, type: 3}
+  angry: {fileID: 21300000, guid: 141f4ebe9b5348048ba0e2d2da7e0678, type: 3}
 --- !u!1 &608541067
 GameObject:
   m_ObjectHideFlags: 0
