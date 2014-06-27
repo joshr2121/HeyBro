@@ -16,7 +16,6 @@ public class GameControl : MonoBehaviour {
 
 	public bool hi5; 				// begin and end a battle with a hi5
 	public bool seqGenerated; 		// true if a sequence has been generated but not completed 
-	public bool hasResetInput;		// Used to detect if we've reset input already
 
 	public enum reaction { block, counter, fail };
 
@@ -32,7 +31,6 @@ public class GameControl : MonoBehaviour {
 
 	void Start () {
 		hi5 = true;
-		hasResetInput = false;
 		startPlayerTurn ();
 		seqObjectCloseEnoughDistance = 0.4f;
 	}
@@ -139,16 +137,7 @@ public class GameControl : MonoBehaviour {
 			seqGenerated = true; 
 			turn++;
 		}
-		
 		else {
-			if (!hasResetInput) {
-				if (pictogramsInRange ()) {
-					player.detectedA = -1;
-					player.detectedB = -2;
-					hasResetInput = true;
-				}
-			}
-			
 			if (pictogramsTooLow ()) {
 				for (int i = 0; i < 6; i++) {
 					seqQueueLeft.sequenceObjects[i].GetComponent<SpriteRenderer>().enabled = false;
@@ -157,7 +146,6 @@ public class GameControl : MonoBehaviour {
 				startEnemyTurn ();
 			}
 			else if (player.checkBothEvents() && pictogramsInRange()){
-				hasResetInput = false;
 				seqQueueLeft.sequenceObjects[player.correctMoves].GetComponent<SpriteRenderer>().enabled = false;
 				seqQueueRight.sequenceObjects[player.correctMoves].GetComponent<SpriteRenderer>().enabled = false;
 				player.correctMoves++;
